@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paramétrer un dossier client — Pacioli Centre d'aide</title>
+<meta name="description" content="Informations légales, exercices, journaux et import d'historique.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232E6B5E'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>P</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark">P</span>
+    <span class="brand-text">Pacioli<small>Centre d'aide</small></span>
+  </a>
+  <div class="header-search">
+    <input type="search" id="search" placeholder="Rechercher un article…" autocomplete="off" aria-label="Rechercher">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<main><article class="article">
+    <nav class="crumbs"><a href="../index.html">Centre d'aide</a> <span>/</span> <a href="../index.html#administration">Administration</a></nav>
+    <span class="cat-badge">⚙️ Administration</span>
+    <h1>Paramétrer un dossier client</h1>
+    <p class="tagline">Informations légales, exercices, journaux et import d'historique.</p><h2>En bref</h2><p>Cette page regroupe la configuration structurelle et comptable d'une entreprise cliente : informations légales (dont le numéro ICE), devise et décimales, exercices fiscaux, journaux comptables, et import des fichiers d'historique (balance ou FEC) pour paramétrer l'IA.</p><h2>Comment y accéder</h2><p>Ouvrez le dossier de l'entreprise, puis cliquez sur « Paramètres du dossier » dans le menu latéral gauche.</p><h2>Boutons et icônes</h2><div class="table-wrap"><table><thead><tr><th>Bouton / Icône</th><th>Action</th></tr></thead><tbody><tr><td class="btn-cell">Soumettre à l'IA (historique)</td><td>Déclenche l'analyse du fichier d'historique importé.</td></tr><tr><td class="btn-cell">Ajouter un exercice (+)</td><td>Ajoute une nouvelle période d'exercice comptable.</td></tr><tr><td class="btn-cell">Ajouter un journal (+)</td><td>Ajoute un nouveau journal au dossier.</td></tr><tr><td class="btn-cell">Modifier (crayon)</td><td>Édite les dates d'un exercice ou le nom d'un journal.</td></tr><tr><td class="btn-cell">Supprimer (poubelle)</td><td>Supprime un exercice ou un journal non utilisé.</td></tr></tbody></table></div><h2>Champs et filtres</h2><ul><li><strong>1. Téléchargement d'historique</strong> : zone de dépôt pour importer les fichiers de balance ou FEC.</li><li><strong>2. Informations principales</strong> : nom, ICE, activité, adresse, ville, téléphone et précision décimale.</li><li><strong>3. Gestion des exercices comptables</strong> : tableau des exercices ouverts et formulaire d'ajout.</li><li><strong>4. Gestion des journaux</strong> : tableau des journaux actifs (Achats, Ventes, Caisse, Banques…) avec édition.</li></ul><h2>Modifier les informations d'une entreprise</h2><ol><li>Accédez à la section « Informations principales ».</li><li>Modifiez le champ souhaité (ex. l'adresse email ou le téléphone).</li><li><strong>Cliquez en dehors du champ</strong> : le système enregistre automatiquement et affiche un message de succès vert.</li></ol><h2>Cas d'usage courants</h2><ul><li>Ouverture d'un nouvel exercice comptable pour l'année à venir.</li><li>Création d'un journal de banque pour un nouveau compte bancaire.</li><li>Import d'un FEC de l'année précédente pour pré-entraîner l'IA aux habitudes d'imputation.</li></ul><h2>Règles et limites</h2><ul><li>Téléphone et email doivent respecter des formats valides.</li><li>La précision décimale est un entier compris entre 0 et 10.</li><li><strong>Import d'historique</strong> : CSV ou XLSX uniquement, 5 Mo maximum.</li></ul><h2>Messages &amp; bonnes pratiques</h2><div class="callout c-alert"><span class="callout-label">Alerte</span><p>La date de début doit être antérieure à la date de fin d'un exercice.</p></div><div class="callout c-alert"><span class="callout-label">Alerte</span><p>Conflit de dates : les dates d'un nouvel exercice chevauchent une période déjà enregistrée.</p></div><div class="callout c-warn"><span class="callout-label">Attention</span><p>Il existe déjà un journal portant ce nom : deux journaux identiques sont interdits dans le dossier.</p></div><div class="callout c-warn"><span class="callout-label">Attention</span><p>La taille du fichier dépasse 5 Mo (import d'historique).</p></div><div class="callout c-tip"><span class="callout-label">Conseil</span><p>Renseignez soigneusement l'ICE : l'IA identifie ainsi automatiquement si le dossier est l'émetteur (facture de vente) ou le destinataire (facture d'achat).</p></div><h2>Questions fréquentes</h2><details class="faq"><summary>Où est le bouton d'enregistrement du formulaire société ?</summary><p>Il n'y en a pas : le formulaire s'enregistre automatiquement dès que vous cliquez en dehors d'un champ modifié.</p></details>
+    <nav class="art-nav">
+    <a class="prev" href="05-parametrer-le-cabinet-et-les-collaborateurs.html"><small>Précédent</small>Paramétrer le cabinet et les collaborateurs</a>
+    <a class="next" href="07-exporter-les-ecritures.html"><small>Suivant</small>Exporter les écritures</a>
+  </nav>
+  </article></main>
+<footer class="site-footer">
+  <p>Pacioli — Centre d'aide · Automatisation de la saisie comptable</p>
+  <p class="muted">Besoin d'aide supplémentaire ? Contactez votre interlocuteur Pacioli.</p>
+</footer>
+<script src="../assets/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Déposer des pièces — Pacioli Centre d'aide</title>
+<meta name="description" content="Numériser factures, notes de frais et relevés pour analyse par l'IA.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232E6B5E'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>P</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark">P</span>
+    <span class="brand-text">Pacioli<small>Centre d'aide</small></span>
+  </a>
+  <div class="header-search">
+    <input type="search" id="search" placeholder="Rechercher un article…" autocomplete="off" aria-label="Rechercher">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<main><article class="article">
+    <nav class="crumbs"><a href="../index.html">Centre d'aide</a> <span>/</span> <a href="../index.html#pieces">Traitement des pièces</a></nav>
+    <span class="cat-badge">📄 Traitement des pièces</span>
+    <h1>Déposer des pièces</h1>
+    <p class="tagline">Numériser factures, notes de frais et relevés pour analyse par l'IA.</p><h2>En bref</h2><p>L'écran de dépôt de pièces centralise la collecte des documents comptables. Vous téléversez vos documents selon quatre catégories (Factures d'achat, Factures de vente, Notes de frais, Relevés bancaires) ; l'IA extrait les montants, détecte les doublons et pré-génère les écritures.</p><p>L'interface se compose de trois zones : le titre avec un badge du nombre total de documents ; les quatre zones de téléversement ; et le tableau des documents déposés avec leur statut de traitement.</p><h2>Comment y accéder</h2><p>Ouvrez un dossier client depuis la liste des dossiers du cabinet, puis cliquez sur « Dépôt de pièces » dans le menu latéral.</p><h2>Boutons et icônes</h2><div class="table-wrap"><table><thead><tr><th>Bouton / Icône</th><th>Action</th></tr></thead><tbody><tr><td class="btn-cell">Zone de téléversement (nuage)</td><td>Cliquez sur l'une des quatre zones colorées pour importer un fichier de ce type.</td></tr><tr><td class="btn-cell">Renvoyer (flèche circulaire)</td><td>Renvoie à l'IA un fichier dont l'analyse a échoué ou a été rejetée.</td></tr><tr><td class="btn-cell">Voir les détails (œil)</td><td>Ouvre une fenêtre détaillant les données extraites et les écritures générées.</td></tr><tr><td class="btn-cell">Comparer les fichiers (deux feuilles)</td><td>En cas de doublon, compare côte à côte la pièce dupliquée et l'originale.</td></tr><tr><td class="btn-cell">Supprimer la sélection (corbeille)</td><td>Barre flottante : supprime les fichiers cochés.</td></tr><tr><td class="btn-cell">Télécharger les originaux</td><td>Barre flottante : télécharge les fichiers d'origine sur votre ordinateur.</td></tr></tbody></table></div><h2>Champs et filtres</h2><ul><li><strong>Champ de recherche</strong> : filtre les documents par nom de fichier.</li><li><strong>Statut</strong> : filtre par état (Téléchargé, En traitement, Traité, Rejeté, Dupliqué).</li><li><strong>Type</strong> : filtre par catégorie (Factures d'achat, Factures de vente, Notes de frais, Relevés bancaires).</li><li><strong>Filtre Doublons</strong> : affiche ou masque spécifiquement les fichiers détectés comme doublons.</li></ul><h2>Procédure pas à pas</h2><ol><li>Identifiez la catégorie du document à importer (ex. Factures d'achat).</li><li>Glissez-déposez le fichier sur la case correspondante, ou cliquez pour le sélectionner sur votre ordinateur.</li><li>Le fichier apparaît dans le tableau au statut « En cours » ; l'IA procède à la lecture automatique.</li><li>Une fois l'analyse terminée, le statut passe à « Traité ». Cliquez sur l'icône œil pour vérifier les montants et les écritures pré-générées.</li><li>Si le document est détecté comme doublon, comparez-le à l'original et utilisez « Forcer le traitement » seulement si vous êtes certain qu'il s'agit d'une facture distincte.</li></ol><h2>Cas d'usage courants</h2><ul><li>Téléversement mensuel des factures d'achat reçues par email.</li><li>Dépôt de relevés bancaires papier préalablement scannés.</li><li>Traitement d'une facture rejetée par erreur comme doublon (même montant et même fournisseur qu'une autre).</li></ul><h2>Règles et limites</h2><ul><li><strong>Formats acceptés</strong> : PDF, PNG, JPG, JPEG uniquement.</li><li><strong>Taille maximale</strong> : 5 Mo par document.</li><li><strong>Quotas</strong> : les relevés bancaires consomment le « Quota Relevés » ; les factures et notes de frais consomment le « Quota Pièces ».</li></ul><h2>Messages &amp; bonnes pratiques</h2><div class="callout c-alert"><span class="callout-label">Alerte</span><p>Format non pris en charge : seuls .pdf, .png, .jpg et .jpeg sont acceptés. Convertissez votre fichier en image ou PDF standard.</p></div><div class="callout c-warn"><span class="callout-label">Attention</span><p>Enveloppe de quota épuisée : vous avez consommé toutes les pièces autorisées par votre contrat ; le dépôt est désactivé. Contactez le support commercial pour augmenter votre pack.</p></div><div class="callout c-info"><span class="callout-label">Remarque</span><p>Doublon détecté : les doublons sont automatiquement rejetés et leurs écritures ne sont pas traitées. Cliquez sur « Comparer les fichiers » pour forcer le traitement d'un document légitime.</p></div><div class="callout c-tip"><span class="callout-label">Conseil</span><p>Pour un taux d'extraction proche de 100 %, veillez à des documents bien cadrés, sans ombres, au texte parfaitement lisible. Évitez les PDF regroupant plusieurs factures.</p></div><h2>Questions fréquentes</h2><details class="faq"><summary>Pourquoi mon fichier est-il marqué « Doublon » ?</summary><p>Pacioli analyse le contenu textuel et visuel. Si un document présente des caractéristiques identiques (même émetteur, mêmes montants, même date) à un fichier déjà traité, il est bloqué par sécurité pour éviter de dupliquer la dépense.</p></details><details class="faq"><summary>Que se passe-t-il si je supprime un document traité ?</summary><p>La suppression entraîne aussi la suppression automatique de toutes les écritures comptables associées dans le Journal comptable.</p></details>
+    <nav class="art-nav">
+    <a class="prev" href="01-bien-demarrer-avec-pacioli.html"><small>Précédent</small>Bien démarrer avec Pacioli</a>
+    <a class="next" href="03-consulter-et-corriger-le-journal-comptable.html"><small>Suivant</small>Consulter et corriger le journal comptable</a>
+  </nav>
+  </article></main>
+<footer class="site-footer">
+  <p>Pacioli — Centre d'aide · Automatisation de la saisie comptable</p>
+  <p class="muted">Besoin d'aide supplémentaire ? Contactez votre interlocuteur Pacioli.</p>
+</footer>
+<script src="../assets/search.js"></script>
+</body>
+</html>
