@@ -3,60 +3,388 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pacioli Compta — Centre d'aide</title>
-<meta name="description" content="Centre d'aide Pacioli Compta : guides pratiques pour la saisie comptable automatisée.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232E6B5E'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>P</text></svg>">
-<link rel="stylesheet" href="assets/style.css">
+<title>Centre d'aide — Pacioli Compta</title>
+<meta name="description" content="Guide d'utilisation de Pacioli Compta : dossiers clients, dépôt de pièces, journal comptable, lettrage et export des écritures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#0b3f3b;--teal-800:#0e4f49;--teal-700:#0f5f58;--teal-600:#12736b;--teal-500:#178b81;--teal-400:#3fa79c;
+    --mint:#e2f2ef;--mint-2:#cfe8e3;--ink:#123230;--slate:#4c5f5c;--muted:#6f8a86;--line:#e2ecea;--canvas:#f7faf9;--card:#fff;
+    --bad:#a8392b;--bad-bg:#fbeae7;--warn:#b4702e;--warn-bg:#fdf1e3;--ok:#2f8f6b;--ok-bg:#e5f4ee;
+    --shadow:0 1px 2px rgba(14,79,73,.05),0 10px 26px -14px rgba(14,79,73,.22);
+    --font:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--display:'Poppins',var(--font);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--canvas);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal-600);text-decoration:none}
+  .layout{display:flex;min-height:100vh}
+
+  /* Sidebar */
+  .side{width:288px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;
+    background:linear-gradient(170deg,var(--teal-800),var(--teal-900));color:#dff0ee;padding:26px 20px 40px}
+  .brand{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+  .brand svg{width:34px;height:34px;flex-shrink:0}
+  .brand-name{font-family:var(--display);font-weight:700;font-size:19px;color:#fff;letter-spacing:.2px}
+  .brand-sub{font-size:11px;letter-spacing:2px;color:#7fb3ac;margin:2px 0 22px 45px;text-transform:uppercase}
+  .nav-group{margin-bottom:20px}
+  .nav-group h4{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#6ea8a0;margin:0 0 8px 10px;font-weight:600}
+  .nav a{display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;color:#cfe7e3;font-size:14px;font-weight:500;transition:.15s}
+  .nav a .n{width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,.09);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#bfe0da;flex-shrink:0}
+  .nav a:hover{background:rgba(255,255,255,.07);color:#fff}
+  .nav a.active{background:#fff;color:var(--teal-800);font-weight:600}
+  .nav a.active .n{background:var(--mint);color:var(--teal-700)}
+  .side-foot{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;color:#8fbdb6}
+
+  /* Main */
+  .main{flex:1;min-width:0}
+  .wrap{max-width:940px;margin:0 auto;padding:0 40px 90px}
+  .hero{padding:64px 40px 46px;background:radial-gradient(1100px 320px at 15% -10%,rgba(18,115,107,.10),transparent)}
+  .hero .wrap{padding:0}
+  .kicker{color:var(--teal-600);font-weight:700;font-size:13px;letter-spacing:.6px;text-transform:uppercase}
+  h1.title{font-family:var(--display);font-weight:800;font-size:44px;line-height:1.1;margin:8px 0 14px;color:var(--teal-900)}
+  .lead{font-size:18px;color:var(--slate);max-width:640px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .chip{background:var(--mint);color:var(--teal-700);font-weight:600;font-size:13px;padding:6px 13px;border-radius:20px}
+
+  article{scroll-margin-top:20px;padding-top:44px}
+  article h2{font-family:var(--display);font-weight:700;font-size:27px;color:var(--teal-900);margin:0 0 6px;padding-bottom:12px;border-bottom:2px solid var(--line);position:relative}
+  article h2 .num{color:var(--teal-400)}
+  h3{font-family:var(--display);font-weight:600;font-size:18px;color:var(--teal-700);margin:26px 0 8px}
+  p{margin:0 0 14px}
+  .intro{font-size:16.5px;color:var(--slate)}
+  figure{margin:22px 0 6px}
+  figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  figcaption{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+  ol.steps li{position:relative;padding:4px 0 12px 44px;margin:0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:9px;background:var(--mint);color:var(--teal-700);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  ul.dots{padding-left:0;list-style:none;margin:12px 0}
+  ul.dots li{position:relative;padding:2px 0 8px 22px}
+  ul.dots li::before{content:"";position:absolute;left:4px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--teal-500)}
+  .callout{display:flex;gap:12px;background:var(--mint);border-left:4px solid var(--teal-600);border-radius:0 12px 12px 0;padding:14px 16px;margin:18px 0;color:var(--teal-900);font-size:14.5px}
+  .callout .lead-w{font-weight:700;color:var(--teal-700)}
+  .callout.warn{background:var(--warn-bg);border-color:var(--warn);color:#7c4a17}
+  .callout.warn .lead-w{color:var(--warn)}
+  .callout svg{flex-shrink:0;margin-top:1px}
+
+  footer.site{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:26px 40px;text-align:center;background:#fff}
+
+  .menu-btn{display:none}
+  @media(max-width:900px){
+    .side{position:fixed;left:0;top:0;transform:translateX(-100%);transition:.25s;z-index:50;box-shadow:0 0 40px rgba(0,0,0,.3)}
+    .side.open{transform:none}
+    .menu-btn{display:inline-flex;position:fixed;top:14px;left:14px;z-index:40;background:var(--teal-700);color:#fff;border:none;border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;box-shadow:var(--shadow);cursor:pointer}
+    .hero{padding:70px 22px 34px}.wrap{padding:0 22px 70px}h1.title{font-size:34px}
+    .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}.scrim.open{display:block}
+  }
+</style>
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <span class="brand-mark">P</span>
-    <span class="brand-text">Pacioli Compta<small>Centre d'aide</small></span>
-  </a>
-  <div class="header-search">
-    <input type="search" id="search" placeholder="Rechercher un article…" autocomplete="off" aria-label="Rechercher">
-    <div id="search-results" class="search-results" hidden></div>
-  </div>
-</header>
-<main>
-  <section class="cover">
-    <p class="kicker">Pacioli Compta</p>
-    <h1>Centre d'aide</h1>
-    <p class="lede">Guide d'utilisation de votre espace de saisie comptable</p>
-  </section>
-  <div class="cover-meta">
-    <p class="domaines">Dossiers · Dépôt de pièces · Journal · Lettrage · Export</p>
-    <p class="edition">Édition juillet 2026</p>
-    <div class="hero-search">
-      <input type="search" id="hero-search-input" placeholder="Rechercher : dépôt, journal, lettrage, export…" autocomplete="off" aria-label="Rechercher">
-      <div id="hero-search-results" class="search-results" hidden></div>
+<button class="menu-btn" id="menuBtn" aria-label="Menu">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+  <aside class="side" id="side">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="3.4" fill="#fff"/><circle cx="9" cy="12" r="2.4" fill="#8fd3ca"/><circle cx="31" cy="12" r="2.4" fill="#8fd3ca"/><circle cx="9" cy="28" r="2.4" fill="#8fd3ca"/><circle cx="31" cy="28" r="2.4" fill="#8fd3ca"/><g stroke="#5fbdb2" stroke-width="1.5"><line x1="11" y1="13" x2="18" y2="18.5"/><line x1="29" y1="13" x2="22" y2="18.5"/><line x1="11" y1="27" x2="18" y2="21.5"/><line x1="29" y1="27" x2="22" y2="21.5"/></g></svg>
+      <div class="brand-name">Neurocompta</div>
     </div>
-  </div>
-  <section class="sommaire">
-    <h2>Sommaire</h2>
-    <p class="intro">Chaque article est illustré par une capture de l'application. Retrouvez les fonctions dans le menu de gauche, organisé par domaine.</p>
-    <section class="cat-block" id="prise-en-main">
-      <div class="cat-head"><h3>🚀 Prise en main</h3><p class="muted">Découvrir Pacioli, les profils et le suivi du contrat.</p></div>
-      <ul class="art-list"><li><a href="articles/01-bien-demarrer-avec-pacioli.html"><span class="art-title">1. Bien démarrer avec Pacioli</span><span class="art-sub">Profils, accès aux dossiers et navigation.</span></a></li><li><a href="articles/02-suivre-votre-consommation.html"><span class="art-title">2. Suivre votre consommation</span><span class="art-sub">Enveloppes du contrat, rythme de dépôt et répartition par dossier.</span></a></li></ul>
-    </section><section class="cat-block" id="dossiers">
-      <div class="cat-head"><h3>📁 Dossiers clients</h3><p class="muted">Créer et retrouver vos dossiers.</p></div>
-      <ul class="art-list"><li><a href="articles/03-gerer-vos-dossiers-clients.html"><span class="art-title">3. Gérer vos dossiers clients</span><span class="art-sub">Créer un dossier, retrouver le bon, repérer ce qui demande une action.</span></a></li></ul>
-    </section><section class="cat-block" id="pieces">
-      <div class="cat-head"><h3>📄 Traitement des pièces</h3><p class="muted">Déposer les documents et saisir les écritures.</p></div>
-      <ul class="art-list"><li><a href="articles/04-deposer-des-pieces.html"><span class="art-title">4. Déposer des pièces</span><span class="art-sub">Transmettre factures et relevés pour analyse automatique.</span></a></li><li><a href="articles/05-saisir-ou-corriger-une-ecriture.html"><span class="art-title">5. Saisir ou corriger une écriture</span><span class="art-sub">Compléter une écriture, l'équilibrer et la valider.</span></a></li></ul>
-    </section><section class="cat-block" id="comptabilite">
-      <div class="cat-head"><h3>📊 Comptabilité</h3><p class="muted">Journal, comptes, lettrage et export.</p></div>
-      <ul class="art-list"><li><a href="articles/06-consulter-le-journal-comptable.html"><span class="art-title">6. Consulter le journal comptable</span><span class="art-sub">Retrouver, vérifier et valider les écritures du dossier.</span></a></li><li><a href="articles/07-gerer-la-liste-des-comptes.html"><span class="art-title">7. Gérer la liste des comptes</span><span class="art-sub">Le plan comptable du dossier.</span></a></li><li><a href="articles/08-lettrer-et-justifier.html"><span class="art-title">8. Lettrer et justifier</span><span class="art-sub">Rapprocher factures et règlements, réclamer les pièces manquantes.</span></a></li><li><a href="articles/09-exporter-les-ecritures.html"><span class="art-title">9. Exporter les écritures</span><span class="art-sub">Produire le fichier destiné à votre logiciel comptable.</span></a></li></ul>
-    </section><section class="cat-block" id="administration">
-      <div class="cat-head"><h3>⚙️ Administration</h3><p class="muted">Paramétrer un dossier et le cabinet.</p></div>
-      <ul class="art-list"><li><a href="articles/10-parametrer-un-dossier-client.html"><span class="art-title">10. Paramétrer un dossier client</span><span class="art-sub">Informations, exercices, historique et collaborateurs assignés.</span></a></li><li><a href="articles/11-parametrer-le-cabinet.html"><span class="art-title">11. Paramétrer le cabinet</span><span class="art-sub">Nom du cabinet et gestion des collaborateurs.</span></a></li></ul>
-    </section>
-  </section></main>
-<footer class="site-footer">
-  <p>Pacioli Compta — Centre d'aide · Automatisation de la saisie comptable</p>
-  <p class="muted">Besoin d'aide supplémentaire ? Contactez votre interlocuteur Pacioli.</p>
-</footer>
-<script src="assets/search.js"></script>
+    <div class="brand-sub">Centre d'aide</div>
+    <nav class="nav">
+      <div class="nav-group">
+        <h4>Prise en main</h4>
+        <a href="#demarrer"><span class="n">1</span>Bien démarrer</a>
+        <a href="#consommation"><span class="n">2</span>Suivre votre consommation</a>
+      </div>
+      <div class="nav-group">
+        <h4>Dossiers clients</h4>
+        <a href="#dossiers"><span class="n">3</span>Gérer vos dossiers</a>
+      </div>
+      <div class="nav-group">
+        <h4>Traitement des pièces</h4>
+        <a href="#pieces"><span class="n">4</span>Déposer des pièces</a>
+        <a href="#saisie"><span class="n">5</span>Saisir une écriture</a>
+      </div>
+      <div class="nav-group">
+        <h4>Comptabilité</h4>
+        <a href="#journal"><span class="n">6</span>Journal comptable</a>
+        <a href="#comptes"><span class="n">7</span>Liste des comptes</a>
+        <a href="#lettrage"><span class="n">8</span>Lettrer et justifier</a>
+        <a href="#export"><span class="n">9</span>Exporter les écritures</a>
+      </div>
+      <div class="nav-group">
+        <h4>Administration</h4>
+        <a href="#parametres-dossier"><span class="n">10</span>Paramètres du dossier</a>
+        <a href="#parametres-cabinet"><span class="n">11</span>Paramètres du cabinet</a>
+      </div>
+    </nav>
+    <div class="side-foot">Pacioli Compta<br>Guide d'utilisation</div>
+  </aside>
+
+  <main class="main">
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">Pacioli Compta</div>
+        <h1 class="title">Centre d'aide</h1>
+        <p class="lead">Tout pour prendre en main votre espace de saisie comptable : dossiers clients, dépôt de pièces, journal, lettrage et export des écritures.</p>
+        <div class="chips">
+          <span class="chip">Dossiers</span><span class="chip">Dépôt de pièces</span><span class="chip">Journal</span>
+          <span class="chip">Lettrage</span><span class="chip">Export</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <article id="demarrer"><h2><span class="num">1.</span> Bien démarrer avec Pacioli</h2><p class="intro">Pacioli automatise la saisie comptable : vous déposez vos factures et vos relevés, l'analyse en extrait les montants et prépare les écritures. Vous vérifiez, corrigez si besoin, puis exportez.</p>
+<p>L'application s'organise sur deux niveaux. Le niveau cabinet donne la vue d'ensemble et la liste de vos dossiers. Une fois un dossier ouvert, le menu de gauche bascule sur les fonctions comptables de ce dossier.</p>
+<figure><img loading="lazy" src="img/dossiers-clients.png" alt="La liste des dossiers clients"><figcaption>La liste des dossiers clients, point de départ du travail quotidien</figcaption></figure>
+<h3>Deux profils</h3>
+<ul class="dots">
+<li><b>Administrateur</b> : voit tous les dossiers du cabinet, gère les collaborateurs et le contrat. À la connexion, il arrive sur le tableau de bord.</li>
+<li><b>Utilisateur</b> : ne voit que les dossiers auxquels il est assigné. À la connexion, il arrive directement sur ses dossiers clients.</li>
+</ul>
+<h3>Accès aux dossiers</h3>
+<p>Un collaborateur ne voit un dossier, et ne peut y travailler, que s'il y est assigné. L'assignation est faite par un administrateur depuis les paramètres du dossier.</p>
+<ul class="dots">
+<li>Le collaborateur qui <b>crée</b> un dossier y est assigné automatiquement.</li>
+<li>Un <b>administrateur</b> accède à tous les dossiers sans avoir besoin d'y être assigné.</li>
+<li>Les noms des collaborateurs assignés apparaissent en pied de chaque carte de dossier.</li>
+</ul>
+<h3>Se déplacer dans l'application</h3>
+<ol class="steps">
+<li>Ouvrez un dossier depuis la liste : le menu affiche <b>Dépôt de pièces</b>, <b>Journal comptable</b>, <b>Liste des comptes</b>, <b>Lettrage &amp; justificatifs</b>, <b>Export</b> et <b>Paramètres du dossier</b>.</li>
+<li>Le lien en haut du menu, portant le nom de votre cabinet, referme le dossier et vous ramène à la vue d'ensemble.</li>
+<li>Le pied du menu rappelle en permanence qui est connecté et quel dossier est ouvert.</li>
+</ol>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Si une entrée de menu ne s'affiche pas, vérifiez d'abord votre niveau : certaines fonctions n'existent qu'au niveau cabinet, d'autres seulement dans un dossier ouvert.</div></div></article>
+
+<article id="consommation"><h2><span class="num">2.</span> Suivre votre consommation</h2><p class="intro">Le tableau de bord est le premier écran de l'administrateur. Il répond à une question : votre contrat tiendra-t-il jusqu'à l'échéance au rythme actuel ?</p>
+<p>Deux enveloppes sont suivies séparément : le traitement des pièces et les pages de relevés bancaires. Les doublons écartés ne sont jamais décomptés.</p>
+<figure><img loading="lazy" src="img/tableau-de-bord.png" alt="Le tableau de bord et ses enveloppes"><figcaption>Enveloppes du contrat, activité mensuelle et répartition par dossier</figcaption></figure>
+<h3>Lire une enveloppe</h3>
+<p>Chaque carte affiche le consommé, le restant et le rythme quotidien. Le trait vertical sur la jauge marque le <b>repère de rythme</b> : c'est là que votre consommation devrait se situer aujourd'hui, compte tenu du chemin déjà parcouru dans le contrat.</p>
+<ul class="dots">
+<li><b>La jauge en deçà du repère</b> : vous consommez moins vite que la durée ne s'écoule.</li>
+<li><b>La jauge au-delà du repère</b> : vous consommez plus vite, sans que l'enveloppe soit nécessairement menacée.</li>
+<li>La barre en haut de page rappelle les jours écoulés et restants de la période contractuelle.</li>
+</ul>
+<h3>Alertes de seuil</h3>
+<ul class="dots">
+<li>À <b>80 %</b> de consommation, un message ambre invite à anticiper le renouvellement.</li>
+<li>À <b>90 %</b>, le message passe au rouge : le dépôt se bloquera pour tous les dossiers une fois l'enveloppe vide.</li>
+<li>Les deux messages portent l'adresse du service commercial.</li>
+</ul>
+<h3>Activité et répartition</h3>
+<ul class="dots">
+<li><b>L'activité mensuelle</b> montre le volume déposé mois par mois sur la période contractuelle ; survolez une colonne pour le détail.</li>
+<li><b>La consommation par dossier</b> indique qui consomme l'enveloppe du cabinet — utile pour refacturer ou arbitrer.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Cet écran est réservé aux administrateurs : il porte sur le contrat du cabinet, pas sur un dossier. Un profil Utilisateur arrive directement sur ses dossiers clients.</div></div></article>
+
+<article id="dossiers"><h2><span class="num">3.</span> Gérer vos dossiers clients</h2><p class="intro">L'écran Dossiers clients rassemble les dossiers auxquels vous avez accès. Un bandeau « À traiter » remonte en tête ce qui bloque : pièces en traitement, doublons à arbitrer, pièces rejetées, écritures déséquilibrées et dossiers sans activité depuis trente jours.</p>
+<figure><img loading="lazy" src="img/dossiers-clients.png" alt="Le bandeau « À traiter » et les cartes de dossiers"><figcaption>Le bandeau « À traiter », la recherche et les cartes de dossiers</figcaption></figure>
+<h3>Retrouver un dossier</h3>
+<ul class="dots">
+<li><b>La recherche</b> porte sur le nom, la ville et l'activité.</li>
+<li><b>Le filtre Collaborateur</b> ne propose que les personnes réellement assignées ; l'option « Non assignés » révèle les dossiers que personne ne suit.</li>
+<li><b>Le tri</b> s'effectue par nom, par activité la plus récente ou par volume de pièces.</li>
+</ul>
+<h3>Lire une carte</h3>
+<ul class="dots">
+<li>Les <b>badges colorés</b> ouvrent directement l'écran déjà filtré : doublons, pièces rejetées, écritures déséquilibrées.</li>
+<li>Le pied de carte affiche la date de dernière activité, puis les <b>collaborateurs assignés</b>.</li>
+</ul>
+<h3>Créer un dossier</h3>
+<p>Le bouton « Nouveau dossier » ouvre le formulaire de création. Le nom, l'ICE, l'activité et le pays sont obligatoires ; l'e-mail est facultatif.</p>
+<figure><img loading="lazy" src="img/nouveau-dossier.png" alt="Le formulaire de création d'un dossier"><figcaption>Le formulaire de création d'un dossier client</figcaption></figure>
+<ul class="dots">
+<li>La <b>devise</b> est proposée automatiquement d'après le pays choisi.</li>
+<li>Le <b>pays</b> détermine aussi le plan comptable du dossier et son plan de comptes de départ.</li>
+<li>Vous êtes <b>assigné automatiquement</b> au dossier que vous créez.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> L'activité, le pays et la devise ne sont plus modifiables après la création : ils structurent le dossier. Vérifiez-les avant de valider.</div></div></article>
+
+<article id="pieces"><h2><span class="num">4.</span> Déposer des pièces</h2><p class="intro">Le dépôt de pièces est le point d'entrée de la production comptable. Vous déposez vos documents par catégorie ; l'analyse en extrait les données et prépare les écritures.</p>
+<figure><img loading="lazy" src="img/depot-de-pieces.png" alt="Les zones de dépôt et le tableau des pièces"><figcaption>Les zones de dépôt et le tableau des pièces déjà transmises</figcaption></figure>
+<h3>Déposer un document</h3>
+<ol class="steps">
+<li>Cliquez sur la zone correspondant au type : <b>facture d'achat</b>, <b>facture de vente</b> ou <b>relevé bancaire</b>.</li>
+<li>Choisissez un ou plusieurs fichiers. Formats acceptés : PDF, PNG, JPG. Taille maximale : 5 Mo par fichier.</li>
+<li>La pièce apparaît aussitôt dans le tableau, avec son statut de traitement.</li>
+</ol>
+<h3>Suivre le traitement</h3>
+<ul class="dots">
+<li><b>Téléchargé</b> : la pièce est reçue, l'analyse n'a pas commencé.</li>
+<li><b>En traitement</b> : l'analyse est en cours.</li>
+<li><b>Traité</b> : les écritures sont disponibles dans le journal.</li>
+<li><b>Rejeté</b> : l'analyse n'a pas abouti ; le motif est affiché en clair.</li>
+<li><b>Dupliqué</b> : une pièce identique existe déjà dans le dossier.</li>
+</ul>
+<h3>Arbitrer un doublon</h3>
+<p>Les doublons sont détectés sur le contenu du fichier, et non sur son nom : le même document redéposé sous un autre nom est reconnu. Une pièce en doublon n'est pas décomptée de votre enveloppe et ne produit pas d'écriture.</p>
+<ul class="dots">
+<li>Le bouton de <b>comparaison</b> affiche les deux fichiers côte à côte, au format A4.</li>
+<li>Si les documents sont bien identiques, <b>supprimez</b> le doublon.</li>
+<li>S'il s'agit de deux pièces différentes, <b>forcez le traitement</b> depuis l'écran de comparaison.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Supprimer une pièce supprime aussi les écritures qui en découlent. Si certaines sont validées, une confirmation supplémentaire vous est demandée.</div></div>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Cochez plusieurs lignes : une barre d'actions apparaît en bas de l'écran pour télécharger les fichiers d'origine ou supprimer la sélection.</div></div></article>
+
+<article id="saisie"><h2><span class="num">5.</span> Saisir ou corriger une écriture</h2><p class="intro">La saisie manuelle sert à créer l'écriture d'une pièce que l'analyse n'a pas traitée, ou à corriger une écriture pré-générée. L'aperçu de la pièce reste affiché à côté du formulaire : vous saisissez en regardant le document.</p>
+<p>Cet écran s'ouvre depuis le dépôt de pièces, par le bouton « Saisir », ou depuis le journal en cliquant sur le numéro d'une écriture. Il n'occupe pas d'entrée de menu.</p>
+<figure><img loading="lazy" src="img/saisie-manuelle.png" alt="Le formulaire de saisie et l'aperçu de la pièce"><figcaption>Le formulaire de saisie, avec l'aperçu de la pièce justificative</figcaption></figure>
+<h3>Renseigner l'écriture</h3>
+<ol class="steps">
+<li>Renseignez l'<b>en-tête</b> : date, journal, référence de la pièce et libellé.</li>
+<li>Ajoutez les <b>lignes</b> : un compte, un libellé, puis un débit <b>ou</b> un crédit — jamais les deux sur la même ligne.</li>
+<li>Le champ Compte se recherche au clavier, par numéro ou par intitulé. Si le compte n'existe pas encore, <b>créez-le depuis la liste déroulante</b>, sans quitter l'écran.</li>
+<li>Vérifiez l'équilibre : les totaux débit et crédit s'affichent en bas du formulaire. L'enregistrement est refusé tant qu'ils diffèrent.</li>
+</ol>
+<h3>Enregistrer ou valider</h3>
+<ul class="dots">
+<li><b>Enregistrer</b> conserve l'écriture en l'état ; elle reste modifiable.</li>
+<li><b>Valider</b> enregistre puis fige l'écriture, et ouvre directement la pièce suivante.</li>
+<li>Les flèches <b>« Pièce n / total »</b> permettent d'enchaîner les pièces sans repasser par le journal.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Une écriture validée est figée : elle n'est plus modifiable tant que vous ne l'avez pas dévalidée. C'est ce qui garantit la fiabilité de l'export.</div></div>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Une écriture est toujours rattachée à une pièce justificative. Pour saisir une opération diverse, déposez d'abord le document correspondant.</div></div></article>
+
+<article id="journal"><h2><span class="num">6.</span> Consulter le journal comptable</h2><p class="intro">Le journal rassemble toutes les écritures du dossier, quelle que soit leur origine. C'est l'écran de contrôle avant l'export.</p>
+<figure><img loading="lazy" src="img/journal-comptable.png" alt="Le journal comptable et ses filtres"><figcaption>Le journal, ses filtres et le détail des lignes</figcaption></figure>
+<h3>Filtrer</h3>
+<ul class="dots">
+<li>Par <b>exercice</b>, par <b>période</b>, par <b>journal</b>, par <b>compte</b> ou par <b>libellé</b>.</li>
+<li>Par <b>montant</b>, au débit ou au crédit.</li>
+<li>Par <b>état de validation</b>, pour isoler ce qui reste à valider.</li>
+</ul>
+<h3>Ouvrir une écriture</h3>
+<p>Cliquez sur le numéro d'une écriture pour l'ouvrir en saisie. Vos filtres sont conservés : en revenant au journal, vous retrouvez exactement la liste que vous aviez.</p>
+<h3>Valider</h3>
+<ul class="dots">
+<li>La validation se fait écriture par écriture, ou sur une <b>sélection</b>.</li>
+<li>Une écriture <b>déséquilibrée</b> ne peut pas être validée. Elle reste visible : elle doit être corrigée, pas dissimulée.</li>
+<li>La date de validation alimente le champ correspondant du <b>fichier FEC</b>.</li>
+<li><b>Dévalider</b> une écriture demande une confirmation, pour éviter le geste réflexe.</li>
+</ul>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Depuis l'écran des dossiers, le badge « écritures déséquilibrées » ouvre le journal déjà filtré sur les écritures concernées.</div></div></article>
+
+<article id="comptes"><h2><span class="num">7.</span> Gérer la liste des comptes</h2><p class="intro">Chaque dossier dispose de son propre plan de comptes. Il est créé à l'ouverture du dossier avec une amorce adaptée au pays choisi, puis complété au fil de la production.</p>
+<figure><img loading="lazy" src="img/liste-des-comptes.png" alt="Le plan comptable du dossier"><figcaption>Le plan comptable du dossier</figcaption></figure>
+<h3>Ce que vous pouvez faire</h3>
+<ul class="dots">
+<li><b>Rechercher</b> un compte par numéro ou par intitulé.</li>
+<li><b>Créer</b> un compte, ou <b>modifier</b> l'intitulé d'un compte existant.</li>
+<li><b>Supprimer</b> un compte qui n'est mouvementé par aucune écriture.</li>
+</ul>
+<h3>Une amorce selon le pays</h3>
+<p>Un dossier marocain démarre sur le plan CGNC, un dossier français sur le PCG, un dossier de la zone OHADA sur le SYSCOHADA. Ces amorces couvrent l'essentiel — tiers, TVA, banque, caisse, achats, ventes — et sont faites pour être complétées.</p>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Les comptes utilisés par l'analyse sont ajoutés automatiquement : la liste s'enrichit sans intervention. Vous pouvez aussi créer un compte sans quitter la saisie d'écriture.</div></div></article>
+
+<article id="lettrage"><h2><span class="num">8.</span> Lettrer et justifier</h2><p class="intro">Le lettrage consiste à faire s'annuler les lignes d'un compte de tiers : une facture avec son règlement. L'écran vous propose les rapprochements, avec leur motif en clair — un rapprochement qu'on ne sait pas expliquer n'a pas sa place dans un dossier.</p>
+<figure><img loading="lazy" src="img/lettrage.png" alt="Les comptes de tiers et les rapprochements proposés"><figcaption>Les comptes de tiers et les rapprochements proposés, avec leur score et leur motif</figcaption></figure>
+<h3>Lire une proposition</h3>
+<p>Chaque proposition porte un score et la règle qui l'a produite. Plus le score est élevé, plus le rapprochement est sûr.</p>
+<ul class="dots">
+<li><b>Référence citée</b> : le numéro de la facture apparaît dans le libellé du règlement. C'est la preuve la plus directe.</li>
+<li><b>Montant et date</b> : montant identique, dates rapprochées.</li>
+<li><b>Montant et tiers</b> : montant identique, et libellés désignant visiblement le même tiers.</li>
+<li><b>Règlement groupé</b> : un versement solde plusieurs factures à la fois.</li>
+</ul>
+<h3>Appliquer les rapprochements</h3>
+<ol class="steps">
+<li><b>Appliquer</b> valide une proposition et lui attribue une lettre.</li>
+<li><b>Lettrage automatique</b> applique d'un coup tous les rapprochements sûrs, sur le compte ouvert ou sur tous. Les moins certains restent proposés, à valider à la main.</li>
+<li>Pour lettrer vous-même, <b>cochez des lignes</b> : l'écart s'affiche en direct et le bouton ne s'active que si le groupe s'annule.</li>
+<li>La <b>lettre</b> affichée sur une ligne est cliquable : elle défait le lettrage, après confirmation.</li>
+</ol>
+<h3>Pièces à justifier</h3>
+<p>Le second onglet liste les mouvements des journaux de banque qui posent problème. Deux signaux, qui se cumulent souvent et appellent deux actions distinctes.</p>
+<figure><img loading="lazy" src="img/pieces-a-justifier.png" alt="Les mouvements bancaires sans justificatif"><figcaption>Les mouvements bancaires sans justificatif ou restés à imputer</figcaption></figure>
+<ul class="dots">
+<li><b>Sans pièce</b> : aucun justificatif n'est rattaché. Il est à réclamer au client.</li>
+<li><b>À imputer</b> : le mouvement dort sur un compte d'attente, son affectation reste à trancher.</li>
+<li>Le bouton <b>« Déposer la pièce »</b> transmet le justificatif directement depuis la ligne concernée.</li>
+</ul>
+<h3>Après le dépôt d'un justificatif</h3>
+<ul class="dots">
+<li>Le mouvement quitte <b>immédiatement</b> la liste des pièces manquantes.</li>
+<li>Dès que l'analyse produit l'écriture de la pièce, celle-ci est <b>lettrée automatiquement</b> avec le mouvement bancaire.</li>
+<li>Si les montants ne s'annulent pas — règlement partiel, écart de change — rien n'est forcé : le lettrage reste à faire à la main.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Les comptes lettrables dépendent du plan comptable du dossier, donc de son pays. Le plan appliqué est rappelé en haut de chaque onglet.</div></div>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Un lettrage doit toujours être de solde nul. Si le groupe ne s'annule pas, c'est qu'il reste quelque chose à régler : ne forcez pas, cherchez la ligne manquante.</div></div></article>
+
+<article id="export"><h2><span class="num">9.</span> Exporter les écritures</h2><p class="intro">L'export produit le fichier des écritures du dossier, dans le format attendu par votre logiciel de production. Par défaut, seules les écritures validées sont exportées : c'est ce qu'attend un fichier des écritures comptables.</p>
+<figure><img loading="lazy" src="img/export-ecritures.png" alt="La prévisualisation avant export"><figcaption>La prévisualisation avant export, et les deux formats disponibles</figcaption></figure>
+<h3>Choisir ce que vous exportez</h3>
+<ul class="dots">
+<li>Filtrez par <b>exercice</b>, par <b>période</b> ou par <b>journal</b>.</li>
+<li>La <b>prévisualisation</b> affiche les écritures retenues et leur nombre de lignes avant tout téléchargement.</li>
+</ul>
+<h3>Deux formats</h3>
+<ul class="dots">
+<li><b>FEC (.txt)</b> : le fichier des écritures comptables, avec ses dix-huit champs réglementaires.</li>
+<li><b>Excel (.xlsx)</b> : le même contenu en tableau, pour relecture ou retraitement.</li>
+</ul>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Si le nombre de lignes vous paraît faible, vérifiez l'état de validation dans le journal : les écritures non validées sont exclues par défaut.</div></div></article>
+
+<article id="parametres-dossier"><h2><span class="num">10.</span> Paramétrer un dossier client</h2><p class="intro">Les paramètres du dossier regroupent son identité, ses exercices comptables et les collaborateurs qui y ont accès. Les champs d'identité s'enregistrent à la sortie de chaque champ : il n'y a pas de bouton à actionner.</p>
+<figure><img loading="lazy" src="img/parametres-dossier.png" alt="Les paramètres du dossier"><figcaption>Informations du dossier, collaborateurs assignés et exercices comptables</figcaption></figure>
+<h3>Informations principales</h3>
+<ul class="dots">
+<li><b>Modifiables à tout moment</b> : nom, ICE, adresse, ville, téléphone, e-mail, précision décimale.</li>
+<li><b>Figés depuis la création</b> : activité, pays et devise. Ils structurent le dossier et son plan comptable.</li>
+</ul>
+<h3>Collaborateurs assignés</h3>
+<p>Réservé aux administrateurs. Un collaborateur ne voit ce dossier, et n'y travaille, que s'il y figure.</p>
+<ul class="dots">
+<li>La liste déroulante propose les collaborateurs <b>actifs</b> du cabinet non encore assignés.</li>
+<li>La <b>croix</b> sur une pastille retire l'accès, après confirmation.</li>
+<li>Les administrateurs ne sont pas proposés : ils accèdent déjà à tous les dossiers.</li>
+</ul>
+<h3>Exercices et historique</h3>
+<ul class="dots">
+<li>Créez, modifiez ou supprimez les <b>exercices</b> du dossier. Les périodes ne peuvent pas se chevaucher.</li>
+<li>L'<b>historique d'écritures</b> (balance ou FEC) sert de référence pour retrouver les bons comptes d'imputation, et évite d'avoir à paramétrer le dossier en détail.</li>
+</ul>
+<div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Un dossier sans aucun collaborateur assigné reste visible des seuls administrateurs. La mention apparaît en clair sur la carte du dossier.</div></div></article>
+
+<article id="parametres-cabinet"><h2><span class="num">11.</span> Paramétrer le cabinet</h2><p class="intro">Cet écran est réservé aux administrateurs. Il porte sur le cabinet lui-même : son nom et les personnes qui y travaillent. Un profil Utilisateur ne voit pas cette entrée de menu et ne peut pas y accéder.</p>
+<figure><img loading="lazy" src="img/parametres-cabinet.png" alt="Le nom du cabinet et la liste des collaborateurs"><figcaption>Le nom du cabinet et la liste des collaborateurs</figcaption></figure>
+<h3>Gérer les collaborateurs</h3>
+<ul class="dots">
+<li><b>Ajouter</b> : renseignez le nom, l'e-mail et le rôle.</li>
+<li><b>Le crayon</b> modifie la fiche ; <b>la clé</b> réinitialise le mot de passe.</li>
+<li><b>Le cadenas</b> désactive un compte sans le supprimer : la personne ne peut plus se connecter, son travail reste intact.</li>
+<li><b>La corbeille</b> supprime définitivement le compte.</li>
+</ul>
+<h3>Les deux rôles</h3>
+<ul class="dots">
+<li><b>Administrateur</b> : tous les dossiers, les paramètres du cabinet et l'assignation des collaborateurs.</li>
+<li><b>Utilisateur</b> : uniquement les dossiers auxquels il est assigné, sans accès aux paramètres du cabinet.</li>
+</ul>
+<div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Préférez la désactivation à la suppression pour un collaborateur qui quitte le cabinet : l'historique de ses actions reste ainsi consultable.</div></div></article>
+    </div>
+    <footer class="site">Pacioli Compta — Centre d'aide · L'analyse prépare vos écritures, vous gardez la main sur la validation.</footer>
+  </main>
+</div>
+
+<script>
+  // menu mobile
+  const side=document.getElementById('side'),scrim=document.getElementById('scrim');
+  document.getElementById('menuBtn').onclick=()=>{side.classList.toggle('open');scrim.classList.toggle('open')};
+  scrim.onclick=()=>{side.classList.remove('open');scrim.classList.remove('open')};
+  document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{side.classList.remove('open');scrim.classList.remove('open')}));
+  // scrollspy : section active = dernière dont le haut est passé la ligne de lecture
+  const links=[...document.querySelectorAll('.nav a')];
+  const secs=[...document.querySelectorAll('article')];
+  function spy(){const y=window.scrollY+140;let cur=secs[0];for(const s of secs){if(s.offsetTop<=y)cur=s;}
+    links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur.id));}
+  window.addEventListener('scroll',spy,{passive:true});window.addEventListener('resize',spy);spy();
+</script>
 </body>
 </html>
