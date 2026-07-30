@@ -1,346 +1,434 @@
+/**
+ * Source unique du centre d'aide Pacioli Compta.
+ *
+ * Mise en forme reprise du centre d'aide Pacioli Entreprise : une introduction
+ * courte, une capture de l'écran concerné, puis des sections en listes d'actions,
+ * closes par une astuce ou un point de vigilance.
+ *
+ * Ne documenter que ce que l'utilisateur voit et fait dans l'application.
+ */
+
 module.exports = [
   {
     title: "1. Bien démarrer avec Pacioli",
-    tagline: "Comprendre la plateforme, les profils et la navigation.",
-    brief: [
-      "Pacioli est une solution SaaS qui automatise la saisie comptable. Grâce à la reconnaissance optique et à l'intelligence artificielle, la plateforme extrait automatiquement les données des factures d'achat, factures de vente, notes de frais et relevés bancaires, détecte les doublons et génère des écritures conformes prêtes à l'export.",
-      "L'objectif : supprimer la saisie manuelle fastidieuse et fiabiliser la production comptable.",
+    tagline: "Profils, accès aux dossiers et navigation.",
+    intro: [
+      "Pacioli automatise la saisie comptable : vous déposez vos factures et vos relevés, l'analyse en extrait les montants et prépare les écritures. Vous vérifiez, corrigez si besoin, puis exportez.",
+      "L'application s'organise sur deux niveaux. Le niveau cabinet donne la vue d'ensemble et la liste de vos dossiers. Une fois un dossier ouvert, le menu de gauche bascule sur les fonctions comptables de ce dossier.",
     ],
-    fields: [
-      "Profil Administrateur (cabinet) : contrôle le paramétrage global, crée et affecte les collaborateurs, gère les droits d'accès, configure les contrats et attribue les quotas de chaque dossier.",
-      "Profil Collaborateur / Client : utilise la plateforme au quotidien — dépôt de pièces, vérification des écritures générées par l'IA, correction des écritures déséquilibrées et export des journaux.",
+    shot: ["dossiers-clients", "La liste des dossiers clients, point de départ du travail quotidien."],
+    sections: [
+      {
+        h2: "Deux profils",
+        bullets: [
+          "Administrateur : voit tous les dossiers du cabinet, gère les collaborateurs et le contrat. À la connexion, il arrive sur le tableau de bord.",
+          "Utilisateur : ne voit que les dossiers auxquels il est assigné. À la connexion, il arrive directement sur ses dossiers clients.",
+        ],
+      },
+      {
+        h2: "Accès aux dossiers",
+        text: "Un collaborateur ne voit un dossier, et ne peut y travailler, que s'il y est assigné. L'assignation est faite par un administrateur depuis les paramètres du dossier.",
+        bullets: [
+          "Le collaborateur qui crée un dossier y est assigné automatiquement.",
+          "Un administrateur accède à tous les dossiers sans avoir besoin d'y être assigné.",
+          "Les noms des collaborateurs assignés apparaissent en pied de chaque carte de dossier.",
+        ],
+      },
+      {
+        h2: "Se déplacer dans l'application",
+        bullets: [
+          "Ouvrez un dossier depuis la liste : le menu affiche Dépôt de pièces, Journal comptable, Liste des comptes, Lettrage & justificatifs, Export et Paramètres du dossier.",
+          "Le lien en haut du menu, portant le nom de votre cabinet, referme le dossier et vous ramène à la vue d'ensemble.",
+          "Le pied du menu rappelle en permanence qui est connecté et quel dossier est ouvert.",
+        ],
+      },
     ],
-    steps: [
-      "Sur la page d'accueil du cabinet, la barre latérale affiche les options d'administration : Tableau de bord, Gestion du cabinet, Configuration de pièce, Support et Journal d'audit.",
-      "Ouvrez un dossier d'entreprise cliente : la barre latérale bascule sur les fonctions du dossier — Dépôt de pièces, Journal comptable, Liste des comptes, Export et Paramètres du dossier.",
-      "Utilisez le bouton de retour en haut de la barre latérale pour fermer le dossier et revenir à la vue globale du cabinet à tout moment.",
-    ],
-    stepsTitle: "Naviguer dans l'interface",
     callouts: [
-      ["conseil", "La barre latérale s'adapte au contexte : ses options changent selon que vous êtes au niveau du cabinet ou dans un dossier client. Si une option ne s'affiche pas, vérifiez d'abord dans quel espace vous vous trouvez."],
+      ["conseil", "Si une entrée de menu ne s'affiche pas, vérifiez d'abord votre niveau : certaines fonctions n'existent qu'au niveau cabinet, d'autres seulement dans un dossier ouvert."],
     ],
   },
+
   {
-    title: "2. Déposer des pièces",
-    tagline: "Numériser factures, notes de frais et relevés pour analyse par l'IA.",
-    brief: [
-      "L'écran de dépôt de pièces centralise la collecte des documents comptables. Vous téléversez vos documents selon quatre catégories (Factures d'achat, Factures de vente, Notes de frais, Relevés bancaires) ; l'IA extrait les montants, détecte les doublons et pré-génère les écritures.",
-      "L'interface se compose de trois zones : le titre avec un badge du nombre total de documents ; les quatre zones de téléversement ; et le tableau des documents déposés avec leur statut de traitement.",
+    title: "2. Suivre votre consommation",
+    tagline: "Enveloppes du contrat, rythme de dépôt et répartition par dossier.",
+    intro: [
+      "Le tableau de bord est le premier écran de l'administrateur. Il répond à une question : votre contrat tiendra-t-il jusqu'à l'échéance au rythme actuel ?",
+      "Deux enveloppes sont suivies séparément : le traitement des pièces et les pages de relevés bancaires. Les doublons écartés ne sont jamais décomptés.",
     ],
-    access: ["Ouvrez un dossier client depuis la liste des dossiers du cabinet, puis cliquez sur « Dépôt de pièces » dans le menu latéral."],
-    buttons: [
-      ["Zone de téléversement (nuage)", "Cliquez sur l'une des quatre zones colorées pour importer un fichier de ce type."],
-      ["Renvoyer (flèche circulaire)", "Renvoie à l'IA un fichier dont l'analyse a échoué ou a été rejetée."],
-      ["Voir les détails (œil)", "Ouvre une fenêtre détaillant les données extraites et les écritures générées."],
-      ["Comparer les fichiers (deux feuilles)", "En cas de doublon, compare côte à côte la pièce dupliquée et l'originale."],
-      ["Supprimer la sélection (corbeille)", "Barre flottante : supprime les fichiers cochés."],
-      ["Télécharger les originaux", "Barre flottante : télécharge les fichiers d'origine sur votre ordinateur."],
-    ],
-    fields: [
-      "Champ de recherche : filtre les documents par nom de fichier.",
-      "Statut : filtre par état (Téléchargé, En traitement, Traité, Rejeté, Dupliqué).",
-      "Type : filtre par catégorie (Factures d'achat, Factures de vente, Notes de frais, Relevés bancaires).",
-      "Filtre Doublons : affiche ou masque spécifiquement les fichiers détectés comme doublons.",
-    ],
-    steps: [
-      "Identifiez la catégorie du document à importer (ex. Factures d'achat).",
-      "Glissez-déposez le fichier sur la case correspondante, ou cliquez pour le sélectionner sur votre ordinateur.",
-      "Le fichier apparaît dans le tableau au statut « En cours » ; l'IA procède à la lecture automatique.",
-      "Une fois l'analyse terminée, le statut passe à « Traité ». Cliquez sur l'icône œil pour vérifier les montants et les écritures pré-générées.",
-      "Si le document est détecté comme doublon, comparez-le à l'original et utilisez « Forcer le traitement » seulement si vous êtes certain qu'il s'agit d'une facture distincte.",
-    ],
-    cases: [
-      "Téléversement mensuel des factures d'achat reçues par email.",
-      "Dépôt de relevés bancaires papier préalablement scannés.",
-      "Traitement d'une facture rejetée par erreur comme doublon (même montant et même fournisseur qu'une autre).",
-    ],
-    rules: [
-      "Formats acceptés : PDF, PNG, JPG, JPEG uniquement.",
-      "Taille maximale : 5 Mo par document.",
-      "Quotas : les relevés bancaires consomment le « Quota Relevés » ; les factures et notes de frais consomment le « Quota Pièces ».",
+    shot: ["tableau-de-bord", "Enveloppes du contrat, activité mensuelle et répartition par dossier."],
+    sections: [
+      {
+        h2: "Lire une enveloppe",
+        text: "Chaque carte affiche le consommé, le restant et le rythme quotidien. Le trait vertical sur la jauge marque le repère de rythme : c'est là que votre consommation devrait se situer aujourd'hui, compte tenu du chemin déjà parcouru dans le contrat.",
+        bullets: [
+          "La jauge en deçà du repère : vous consommez moins vite que la durée ne s'écoule.",
+          "La jauge au-delà du repère : vous consommez plus vite, sans que l'enveloppe soit nécessairement menacée.",
+          "La barre en haut de page rappelle les jours écoulés et restants de la période contractuelle.",
+        ],
+      },
+      {
+        h2: "Alertes de seuil",
+        bullets: [
+          "À 80 % de consommation, un message ambre invite à anticiper le renouvellement.",
+          "À 90 %, le message passe au rouge : le dépôt se bloquera pour tous les dossiers une fois l'enveloppe vide.",
+          "Les deux messages portent l'adresse du service commercial.",
+        ],
+      },
+      {
+        h2: "Activité et répartition",
+        bullets: [
+          "Le graphique d'activité mensuelle montre le volume déposé mois par mois sur la période contractuelle ; survolez une colonne pour le détail.",
+          "Le tableau « Consommation par dossier » indique qui consomme l'enveloppe du cabinet — utile pour refacturer ou arbitrer.",
+        ],
+      },
     ],
     callouts: [
-      ["alerte", "Format non pris en charge : seuls .pdf, .png, .jpg et .jpeg sont acceptés. Convertissez votre fichier en image ou PDF standard."],
-      ["attn", "Enveloppe de quota épuisée : vous avez consommé toutes les pièces autorisées par votre contrat ; le dépôt est désactivé. Contactez le support commercial pour augmenter votre pack."],
-      ["info", "Doublon détecté : les doublons sont automatiquement rejetés et leurs écritures ne sont pas traitées. Cliquez sur « Comparer les fichiers » pour forcer le traitement d'un document légitime."],
-      ["conseil", "Pour un taux d'extraction proche de 100 %, veillez à des documents bien cadrés, sans ombres, au texte parfaitement lisible. Évitez les PDF regroupant plusieurs factures."],
-    ],
-    faq: [
-      ["Pourquoi mon fichier est-il marqué « Doublon » ?", "Pacioli analyse le contenu textuel et visuel. Si un document présente des caractéristiques identiques (même émetteur, mêmes montants, même date) à un fichier déjà traité, il est bloqué par sécurité pour éviter de dupliquer la dépense."],
-      ["Que se passe-t-il si je supprime un document traité ?", "La suppression entraîne aussi la suppression automatique de toutes les écritures comptables associées dans le Journal comptable."],
+      ["info", "Cet écran est réservé aux administrateurs : il porte sur le contrat du cabinet, pas sur un dossier. Un profil Utilisateur arrive directement sur ses dossiers clients."],
     ],
   },
+
   {
-    title: "3. Consulter et corriger le journal comptable",
-    tagline: "Contrôler, corriger et équilibrer les écritures avant l'export.",
-    brief: [
-      "Le journal comptable affiche toutes les écritures générées par l'IA ou saisies manuellement, sous forme de lignes de débit et de crédit. C'est l'outil de contrôle et de validation du collaborateur comptable.",
-      "En haut : des indicateurs clés (nombre d'écritures et de lignes, total débit/crédit) et un sélecteur d'exercice. En dessous : un panneau de filtres, le tableau des écritures, et une barre d'actions flottante en bas à droite.",
+    title: "3. Gérer vos dossiers clients",
+    tagline: "Créer un dossier, retrouver le bon, repérer ce qui demande une action.",
+    intro: [
+      "L'écran Dossiers clients rassemble les dossiers auxquels vous avez accès. Un bandeau « À traiter » remonte en tête ce qui bloque : pièces en traitement, doublons à arbitrer, pièces rejetées, écritures déséquilibrées et dossiers sans activité depuis trente jours.",
+      "Chaque compteur du bandeau est cliquable et filtre la liste sur les dossiers concernés.",
     ],
-    access: ["Ouvrez le dossier de l'entreprise cliente, puis cliquez sur « Journal comptable » dans la barre latérale gauche."],
-    buttons: [
-      ["Sélecteur d'exercice", "Choisit l'exercice comptable à afficher et charge les dates correspondantes."],
-      ["Modifier (crayon)", "Modifie la date, le libellé, le débit ou le crédit de l'écriture sélectionnée."],
-      ["Changer d'imputation (flèches circulaires)", "Réaffecte la ligne sélectionnée à un autre compte comptable."],
-      ["Supprimer (corbeille)", "Supprime définitivement les écritures sélectionnées après confirmation."],
-    ],
-    fields: [
-      "Date début / Date fin : filtre sur une plage temporelle au sein de l'exercice.",
-      "Journal : filtre par journal (Achats, Ventes, Caisse, etc.).",
-      "Compte : filtre les lignes d'un numéro de compte donné.",
-      "Libellé : recherche textuelle dans la description des écritures.",
-      "Débit / Crédit : filtre sur des montants spécifiques.",
-    ],
-    steps: [
-      "Sélectionnez l'exercice comptable concerné en haut de l'écran.",
-      "Recherchez l'écriture à l'aide des filtres (ex. le numéro de compte actuel).",
-      "Cochez la case de la ligne à modifier.",
-      "Cliquez sur le bouton de réimputation (flèches circulaires) dans le panneau flottant en bas à droite.",
-      "Recherchez le nouveau compte, sélectionnez-le et cliquez sur « Enregistrer ». La modification est appliquée instantanément.",
-    ],
-    stepsTitle: "Corriger une imputation erronée",
-    cases: [
-      "Correction des comptes d'attente (compte 471) vers les bons comptes de charges ou fournisseurs.",
-      "Suppression d'écritures générées par erreur à la suite d'un mauvais dépôt.",
-    ],
-    rules: [
-      "Toute écriture doit respecter la partie double : la somme des débits doit égaler la somme des crédits.",
-      "Les écritures déséquilibrées restent visibles pour vous permettre de travailler, mais corrigez-les au plus vite pour éviter des écarts à l'export.",
+    shot: ["dossiers-clients", "Le bandeau « À traiter », la recherche et les cartes de dossiers."],
+    sections: [
+      {
+        h2: "Retrouver un dossier",
+        bullets: [
+          "La recherche porte sur le nom, la ville et l'activité.",
+          "Le filtre Collaborateur ne propose que les personnes réellement assignées ; l'option « Non assignés » révèle les dossiers que personne ne suit.",
+          "Le tri s'effectue par nom, par activité la plus récente ou par volume de pièces.",
+        ],
+      },
+      {
+        h2: "Lire une carte",
+        bullets: [
+          "Les badges colorés ouvrent directement l'écran déjà filtré : doublons, pièces rejetées, écritures déséquilibrées.",
+          "Le pied de carte affiche la date de dernière activité, puis les collaborateurs assignés.",
+        ],
+      },
+      {
+        h2: "Créer un dossier",
+        text: "Le bouton « Nouveau dossier » ouvre le formulaire de création. Le nom, l'ICE, l'activité et le pays sont obligatoires ; l'e-mail est facultatif.",
+        shot: ["nouveau-dossier", "Le formulaire de création d'un dossier client."],
+        bullets: [
+          "La devise est proposée automatiquement d'après le pays choisi.",
+          "Le pays détermine aussi le plan comptable du dossier et son plan de comptes de départ.",
+          "Vous êtes assigné automatiquement au dossier que vous créez.",
+        ],
+      },
     ],
     callouts: [
-      ["alerte", "Déséquilibre détecté : alerte rouge en haut de l'écran si les débits n'égalent pas les crédits sur une même pièce. Éditez l'écriture pour l'équilibrer ou ajoutez une ligne de contrepartie."],
-      ["attn", "Vous ne pouvez modifier qu'une seule écriture à la fois : ce message apparaît si plusieurs lignes distinctes sont cochées au moment de cliquer sur Modifier."],
-      ["conseil", "Filtrez régulièrement par journal (« Achats » ou « Ventes ») pour valider vos écritures par blocs cohérents et faciliter la révision de fin de mois."],
-    ],
-    faq: [
-      ["Comment savoir quel document a généré une écriture ?", "Le nom ou le numéro du fichier d'origine figure généralement dans la colonne « N° Pièce ». Vous pouvez retrouver la pièce dans l'écran de dépôt pour comparer les données."],
+      ["attn", "L'activité, le pays et la devise ne sont plus modifiables après la création : ils structurent le dossier. Vérifiez-les avant de valider."],
     ],
   },
+
   {
-    title: "4. Gérer la liste des comptes",
-    tagline: "Administrer le plan comptable du dossier client.",
-    brief: [
-      "Cet écran permet d'administrer le plan comptable propre au dossier sélectionné : créer des comptes, modifier leur libellé ou les supprimer. Il évite l'utilisation de comptes inexistants en encadrant les propositions lors de la saisie.",
-      "L'écran affiche une barre de recherche en haut à gauche, un bouton « Nouveau compte » en haut à droite, et le tableau des comptes avec des actions rapides sur chaque ligne.",
+    title: "4. Déposer des pièces",
+    tagline: "Transmettre factures et relevés pour analyse automatique.",
+    intro: [
+      "Le dépôt de pièces est le point d'entrée de la production comptable. Vous déposez vos documents par catégorie ; l'analyse en extrait les données et prépare les écritures.",
+      "Les doublons sont détectés sur le contenu du fichier, et non sur son nom : le même document redéposé sous un autre nom est reconnu.",
     ],
-    access: ["Dans le menu latéral du dossier ouvert, cliquez sur « Liste des comptes »."],
-    buttons: [
-      ["Nouveau compte (+)", "Crée un compte en renseignant son numéro et son libellé."],
-      ["Modifier (crayon)", "Modifie le libellé du compte de la ligne concernée."],
-      ["Supprimer (poubelle)", "Supprime un ou plusieurs comptes sélectionnés."],
-    ],
-    fields: [
-      "Rechercher un compte : filtre instantanément le tableau par numéro ou libellé.",
-      "Champ Compte (modale) : code numérique du compte (ex. 611100).",
-      "Champ Libellé (modale) : désignation du compte (ex. Achats de marchandises).",
-    ],
-    steps: [
-      "Cliquez sur « Nouveau compte » en haut à droite.",
-      "Saisissez le numéro de compte (ex. 441100).",
-      "Saisissez le libellé correspondant (ex. Fournisseurs).",
-      "Cliquez sur « Créer ». Le compte est immédiatement disponible pour vos écritures.",
-    ],
-    stepsTitle: "Ajouter un compte",
-    cases: [
-      "Création d'un compte de tiers pour un nouveau fournisseur important.",
-      "Modification de l'intitulé d'un compte de charge pour le rendre plus explicite.",
-    ],
-    rules: [
-      "Un compte utilisé dans au moins une écriture (équilibrée ou non) ne peut pas être supprimé : réimputez ou supprimez d'abord ces écritures.",
+    shot: ["depot-de-pieces", "Les zones de dépôt et le tableau des pièces déjà transmises."],
+    sections: [
+      {
+        h2: "Déposer un document",
+        bullets: [
+          "Cliquez sur la zone correspondant au type : facture d'achat, facture de vente ou relevé bancaire.",
+          "Choisissez un ou plusieurs fichiers. Formats acceptés : PDF, PNG, JPG. Taille maximale : 5 Mo par fichier.",
+          "La pièce apparaît aussitôt dans le tableau, avec son statut de traitement.",
+        ],
+      },
+      {
+        h2: "Suivre le traitement",
+        bullets: [
+          "Téléchargé : la pièce est reçue, l'analyse n'a pas commencé.",
+          "En traitement : l'analyse est en cours.",
+          "Traité : les écritures sont disponibles dans le journal.",
+          "Rejeté : l'analyse n'a pas abouti ; le motif est affiché en clair.",
+          "Dupliqué : une pièce identique existe déjà dans le dossier.",
+        ],
+      },
+      {
+        h2: "Arbitrer un doublon",
+        text: "Une pièce détectée comme doublon n'est pas décomptée de votre enveloppe et ne produit pas d'écriture. Le bouton de comparaison affiche les deux fichiers côte à côte, au format A4, pour trancher.",
+        bullets: [
+          "Si les deux documents sont bien identiques, supprimez le doublon.",
+          "S'il s'agit de deux pièces différentes, forcez le traitement depuis l'écran de comparaison.",
+        ],
+      },
+      {
+        h2: "Agir sur plusieurs pièces",
+        text: "Cochez des lignes : une barre d'actions apparaît en bas de l'écran.",
+        bullets: [
+          "Télécharger les fichiers d'origine sur votre poste.",
+          "Supprimer les pièces sélectionnées, après confirmation.",
+        ],
+      },
     ],
     callouts: [
-      ["attn", "Veuillez remplir tous les champs obligatoires : apparaît si vous tentez d'enregistrer un compte sans numéro ou sans libellé."],
-      ["alerte", "Suppression impossible : un ou plusieurs comptes contiennent des écritures. Le système bloque la suppression pour préserver l'intégrité comptable."],
-      ["conseil", "Utilisez des numéros de compte standardisés conformes à votre plan comptable national : l'IA apprend des structures déjà enregistrées dans ce tableau."],
-    ],
-    faq: [
-      ["Puis-je modifier le numéro d'un compte existant ?", "Non, le numéro est un identifiant unique. En cas d'erreur, supprimez le compte et recréez-le avec le bon numéro."],
+      ["attn", "Supprimer une pièce supprime aussi les écritures qui en découlent. Si certaines sont validées, une confirmation supplémentaire vous est demandée."],
+      ["conseil", "La recherche et les filtres Statut, Type et Doublons se combinent : utilisez-les pour isoler rapidement les pièces à reprendre."],
     ],
   },
+
   {
-    title: "5. Paramétrer le cabinet et les collaborateurs",
-    tagline: "Identité du cabinet, utilisateurs, rôles et suivi des contrats.",
-    brief: [
-      "Ce panneau d'administration permet de mettre à jour le nom du cabinet, d'inviter des collaborateurs avec des rôles précis, de suivre la consommation des pièces et de gérer les packs contractuels.",
-      "L'écran se compose de trois sections : en haut le nom du cabinet ; au centre la liste et la création des collaborateurs ; en bas le récapitulatif du contrat actif avec le suivi de consommation (pièces et pages de relevés).",
+    title: "5. Saisir ou corriger une écriture",
+    tagline: "Compléter une écriture, l'équilibrer et la valider.",
+    intro: [
+      "La saisie manuelle sert à créer l'écriture d'une pièce que l'analyse n'a pas traitée, ou à corriger une écriture pré-générée. L'aperçu de la pièce reste affiché à côté du formulaire : vous saisissez en regardant le document.",
+      "Cet écran s'ouvre depuis le dépôt de pièces, par le bouton « Saisir », ou depuis le journal en cliquant sur le numéro d'une écriture. Il n'occupe pas d'entrée de menu.",
     ],
-    access: ["Vous devez disposer du rôle Administrateur. Cliquez sur « Gestion de cabinet » ou « Paramètres du cabinet » dans la barre latérale d'administration (aucun dossier client ouvert)."],
-    buttons: [
-      ["Enregistrer le nom du cabinet", "Sauvegarde le nom modifié du cabinet."],
-      ["Inviter un membre / Ajouter", "Ajoute un nouveau collaborateur au cabinet."],
-      ["Modifier (crayon)", "Modifie les informations ou le rôle d'un membre."],
-      ["Mot de passe (cadenas)", "Réinitialise le mot de passe d'accès d'un collaborateur."],
-      ["Désactiver (verrou)", "Suspend temporairement l'accès sans supprimer les données."],
-      ["Supprimer (poubelle)", "Supprime définitivement le compte d'un collaborateur."],
-    ],
-    fields: [
-      "Nom du cabinet : appellation officielle visible par les clients.",
-      "Formulaire collaborateur : Nom, Email, Mot de passe requis pour créer un compte.",
-      "Rôle : niveau d'autorisation (Administrateur ou Utilisateur).",
-    ],
-    steps: [
-      "Accédez à la section « Gérer les collaborateurs ».",
-      "Saisissez le nom complet du collaborateur.",
-      "Sélectionnez son rôle (ex. Utilisateur) dans la liste déroulante.",
-      "Cliquez sur « Ajouter ». Le collaborateur reçoit ses accès et apparaît dans le tableau.",
-    ],
-    stepsTitle: "Ajouter un collaborateur",
-    cases: [
-      "Mise à jour des coordonnées et de la désignation commerciale du cabinet.",
-      "Intégration d'un comptable stagiaire avec un profil Utilisateur.",
-      "Révocation immédiate des accès d'un collaborateur ayant quitté le cabinet.",
-    ],
-    rules: [
-      "Seuls les Administrateurs peuvent modifier le nom du cabinet, inviter des membres ou changer les droits d'accès.",
-      "Un profil Utilisateur dispose d'une vue en lecture seule sur cette page.",
+    shot: ["saisie-manuelle", "Le formulaire de saisie, avec l'aperçu de la pièce justificative."],
+    sections: [
+      {
+        h2: "Renseigner l'écriture",
+        bullets: [
+          "En-tête : date, journal, référence de la pièce et libellé.",
+          "Lignes : un compte, un libellé, puis un débit ou un crédit — jamais les deux sur la même ligne.",
+          "Le champ Compte se recherche au clavier, par numéro ou par intitulé.",
+          "Si le compte n'existe pas encore, créez-le directement depuis la liste déroulante, sans quitter l'écran.",
+        ],
+      },
+      {
+        h2: "Équilibrer",
+        text: "Le total du débit et celui du crédit s'affichent en permanence en bas du formulaire. L'enregistrement est refusé tant que les deux ne sont pas égaux.",
+      },
+      {
+        h2: "Enregistrer ou valider",
+        bullets: [
+          "Enregistrer conserve l'écriture en l'état ; elle reste modifiable.",
+          "Valider enregistre puis fige l'écriture, et ouvre directement la pièce suivante.",
+          "Les flèches « Pièce n / total » permettent d'enchaîner les pièces sans repasser par le journal.",
+        ],
+      },
     ],
     callouts: [
-      ["attn", "Format d'email invalide : l'adresse saisie ne respecte pas la structure standard (ex. nom@domaine.com)."],
-      ["alerte", "Le nom / mot de passe est obligatoire : la validation du formulaire est bloquée si l'un de ces champs est vide."],
-      ["conseil", "Par sécurité, attribuez le rôle « Utilisateur » par défaut aux collaborateurs opérationnels et réservez « Administrateur » aux associés ou responsables."],
-    ],
-    faq: [
-      ["Que faire si un collaborateur a oublié son mot de passe ?", "En tant qu'administrateur, réinitialisez-le en cliquant sur l'icône cadenas sur sa ligne dans le tableau des collaborateurs."],
+      ["attn", "Une écriture validée est figée : elle n'est plus modifiable tant que vous ne l'avez pas dévalidée. C'est ce qui garantit la fiabilité de l'export."],
+      ["conseil", "Une écriture est toujours rattachée à une pièce justificative. Pour saisir une opération diverse, déposez d'abord le document correspondant."],
     ],
   },
+
   {
-    title: "6. Paramétrer un dossier client",
-    tagline: "Informations légales, exercices, journaux et import d'historique.",
-    brief: [
-      "Cette page regroupe la configuration structurelle et comptable d'une entreprise cliente : informations légales (dont le numéro ICE), devise et décimales, exercices fiscaux, journaux comptables, et import des fichiers d'historique (balance ou FEC) pour paramétrer l'IA.",
+    title: "6. Consulter le journal comptable",
+    tagline: "Retrouver, vérifier et valider les écritures du dossier.",
+    intro: [
+      "Le journal rassemble toutes les écritures du dossier, quelle que soit leur origine. C'est l'écran de contrôle avant l'export.",
+      "Les écritures déséquilibrées y sont signalées mais restent visibles : elles doivent être corrigées, pas dissimulées.",
     ],
-    access: ["Ouvrez le dossier de l'entreprise, puis cliquez sur « Paramètres du dossier » dans le menu latéral gauche."],
-    fields: [
-      "1. Téléchargement d'historique : zone de dépôt pour importer les fichiers de balance ou FEC.",
-      "2. Informations principales : nom, ICE, activité, adresse, ville, téléphone et précision décimale.",
-      "3. Gestion des exercices comptables : tableau des exercices ouverts et formulaire d'ajout.",
-      "4. Gestion des journaux : tableau des journaux actifs (Achats, Ventes, Caisse, Banques…) avec édition.",
-    ],
-    buttons: [
-      ["Soumettre à l'IA (historique)", "Déclenche l'analyse du fichier d'historique importé."],
-      ["Ajouter un exercice (+)", "Ajoute une nouvelle période d'exercice comptable."],
-      ["Ajouter un journal (+)", "Ajoute un nouveau journal au dossier."],
-      ["Modifier (crayon)", "Édite les dates d'un exercice ou le nom d'un journal."],
-      ["Supprimer (poubelle)", "Supprime un exercice ou un journal non utilisé."],
-    ],
-    steps: [
-      "Accédez à la section « Informations principales ».",
-      "Modifiez le champ souhaité (ex. l'adresse email ou le téléphone).",
-      "Cliquez en dehors du champ : le système enregistre automatiquement et affiche un message de succès vert.",
-    ],
-    stepsTitle: "Modifier les informations d'une entreprise",
-    cases: [
-      "Ouverture d'un nouvel exercice comptable pour l'année à venir.",
-      "Création d'un journal de banque pour un nouveau compte bancaire.",
-      "Import d'un FEC de l'année précédente pour pré-entraîner l'IA aux habitudes d'imputation.",
-    ],
-    rules: [
-      "Téléphone et email doivent respecter des formats valides.",
-      "La précision décimale est un entier compris entre 0 et 10.",
-      "Import d'historique : CSV ou XLSX uniquement, 5 Mo maximum.",
+    shot: ["journal-comptable", "Le journal, ses filtres et le détail des lignes."],
+    sections: [
+      {
+        h2: "Filtrer",
+        bullets: [
+          "Par exercice, par période, par journal, par compte ou par libellé.",
+          "Par montant, au débit ou au crédit.",
+          "Par état de validation, pour isoler ce qui reste à valider.",
+        ],
+      },
+      {
+        h2: "Ouvrir une écriture",
+        text: "Cliquez sur le numéro d'une écriture pour l'ouvrir en saisie. Vos filtres sont conservés : en revenant au journal, vous retrouvez exactement la liste que vous aviez.",
+      },
+      {
+        h2: "Valider",
+        bullets: [
+          "La validation se fait écriture par écriture, ou sur une sélection.",
+          "Une écriture déséquilibrée ne peut pas être validée.",
+          "La date de validation alimente le champ correspondant du fichier FEC.",
+          "Dévalider une écriture demande une confirmation, pour éviter le geste réflexe.",
+        ],
+      },
     ],
     callouts: [
-      ["alerte", "La date de début doit être antérieure à la date de fin d'un exercice."],
-      ["alerte", "Conflit de dates : les dates d'un nouvel exercice chevauchent une période déjà enregistrée."],
-      ["attn", "Il existe déjà un journal portant ce nom : deux journaux identiques sont interdits dans le dossier."],
-      ["attn", "La taille du fichier dépasse 5 Mo (import d'historique)."],
-      ["conseil", "Renseignez soigneusement l'ICE : l'IA identifie ainsi automatiquement si le dossier est l'émetteur (facture de vente) ou le destinataire (facture d'achat)."],
-    ],
-    faq: [
-      ["Où est le bouton d'enregistrement du formulaire société ?", "Il n'y en a pas : le formulaire s'enregistre automatiquement dès que vous cliquez en dehors d'un champ modifié."],
+      ["conseil", "Depuis l'écran des dossiers, le badge « écritures déséquilibrées » ouvre le journal déjà filtré sur les écritures concernées."],
     ],
   },
+
   {
-    title: "7. Exporter les écritures",
-    tagline: "Extraire les écritures validées vers votre logiciel de production.",
-    brief: [
-      "L'écran d'exportation est l'étape finale du traitement. Il filtre les écritures (par date, journal ou exercice) et télécharge un fichier Excel (.xlsx) standardisé, prêt à intégrer dans votre logiciel de comptabilité.",
-      "En haut : les filtres et un grand bouton vert d'export. Au centre : le tableau de prévisualisation. En bas à droite : un badge flottant vert affichant le nombre de lignes correspondant aux filtres actifs.",
+    title: "7. Gérer la liste des comptes",
+    tagline: "Le plan comptable du dossier.",
+    intro: [
+      "Chaque dossier dispose de son propre plan de comptes. Il est créé à l'ouverture du dossier avec une amorce adaptée au pays choisi, puis complété au fil de la production.",
+      "Les comptes utilisés par l'analyse sont ajoutés automatiquement : la liste s'enrichit sans intervention.",
     ],
-    access: ["Depuis le dossier ouvert, cliquez sur « Exporter les écritures » dans le menu latéral gauche."],
-    buttons: [
-      ["Exporter vers Excel", "Télécharge immédiatement le fichier Excel des écritures prévisualisées."],
-      ["Réinitialiser les filtres", "Efface tous les filtres et réaffiche l'intégralité des écritures."],
-    ],
-    fields: [
-      "Date début / Date fin : restreint l'export aux écritures comptabilisées entre ces deux dates.",
-      "Journal : exporte uniquement un journal particulier (ex. Achats).",
-      "Exercice : cible un exercice comptable spécifique.",
-    ],
-    steps: [
-      "Saisissez la date de début (ex. 01/06/2026) et la date de fin (ex. 30/06/2026).",
-      "(Optionnel) Sélectionnez le journal à exporter (ex. Achats).",
-      "Vérifiez le nombre de lignes affiché dans le badge flottant en bas à droite.",
-      "Cliquez sur « Exporter vers Excel ». Le téléchargement démarre immédiatement.",
-    ],
-    stepsTitle: "Exporter les écritures d'un mois",
-    cases: [
-      "Export hebdomadaire du journal de banque pour le rapprochement.",
-      "Génération du fichier annuel pour l'expert-comptable ou le commissaire aux comptes.",
-    ],
-    rules: [
-      "Le fichier généré est au format Excel (.xlsx) standardisé.",
-      "Les colonnes disposent de filtres automatiques ; les lignes de titre (nom du dossier, date d'export) sont figées pour faciliter la lecture.",
+    shot: ["liste-des-comptes", "Le plan comptable du dossier."],
+    sections: [
+      {
+        h2: "Ce que vous pouvez faire",
+        bullets: [
+          "Rechercher un compte par numéro ou par intitulé.",
+          "Créer un compte, ou modifier l'intitulé d'un compte existant.",
+          "Supprimer un compte qui n'est mouvementé par aucune écriture.",
+        ],
+      },
+      {
+        h2: "Une amorce selon le pays",
+        text: "Un dossier marocain démarre sur le plan CGNC, un dossier français sur le PCG, un dossier de la zone OHADA sur le SYSCOHADA. Ces amorces couvrent l'essentiel — tiers, TVA, banque, caisse, achats, ventes — et sont faites pour être complétées.",
+      },
     ],
     callouts: [
-      ["attn", "Aucune donnée à exporter : vos filtres ne correspondent à aucune écriture validée. Modifiez les dates ou vérifiez l'exercice sélectionné."],
-      ["conseil", "Avant l'export final, vérifiez dans le Journal comptable qu'aucune alerte de déséquilibre n'est présente : des écritures déséquilibrées compliquent l'intégration."],
-    ],
-    faq: [
-      ["Puis-je personnaliser le format des colonnes ?", "Le format est conçu pour être universellement compatible. Pour un import spécifique, réorganisez les colonnes dans le fichier Excel généré avec votre tableur habituel."],
+      ["conseil", "Vous pouvez aussi créer un compte sans quitter la saisie d'écriture, directement depuis la liste déroulante du champ Compte."],
     ],
   },
+
   {
-    title: "8. Saisir ou corriger une écriture manuellement",
-    tagline: "Saisie directe et correction chirurgicale, pièce sous les yeux.",
-    brief: [
-      "L'écran de saisie manuelle réunit la pièce justificative originale et le formulaire d'écriture sur un même écran. Il sert à saisir une écriture de A à Z ou à corriger précisément les données extraites par l'IA (comptes, montants, ventilation de TVA).",
-      "L'écran est divisé en deux : à gauche le panneau de saisie (date, journal, conversion de devises, grille des lignes et totaux) ; à droite le visualiseur du document original avec zoom, déplacement et téléchargement. Le bouton d'enregistrement se situe en bas du visualiseur.",
+    title: "8. Lettrer et justifier",
+    tagline: "Rapprocher factures et règlements, réclamer les pièces manquantes.",
+    intro: [
+      "Le lettrage consiste à faire s'annuler les lignes d'un compte de tiers : une facture avec son règlement. L'écran vous propose les rapprochements, avec leur motif en clair — un rapprochement qu'on ne sait pas expliquer n'a pas sa place dans un dossier.",
+      "Le second onglet liste les mouvements bancaires sans justificatif. Vous pouvez y déposer la pièce manquante en un clic.",
     ],
-    access: [
-      "Depuis la liste des pièces, double-cliquez sur un document à corriger et cliquez sur le bouton de saisie ;",
-      "ou ouvrez une écriture depuis le journal comptable pour modification.",
-    ],
-    buttons: [
-      ["Enregistrer", "Enregistre toutes les modifications et ferme l'écran."],
-      ["Ajouter une ligne", "Crée une ligne vide au bas de la grille d'écriture."],
-      ["Supprimer (corbeille sur la ligne)", "Supprime la ligne d'écriture correspondante."],
-      ["Zoom + / -", "Agrandit ou réduit l'aperçu de la facture."],
-      ["Ajuster à l'écran", "Réinitialise le zoom pour afficher tout le document."],
-      ["Plein écran (aperçu)", "Masque le panneau de gauche pour afficher la facture en entier."],
-    ],
-    fields: [
-      "Date : date comptable de l'écriture.",
-      "Journal : journal récepteur de l'écriture.",
-      "Taux de change / Devise : pour les factures en devises étrangères.",
-      "Grille (Compte, Libellé, Débit, Crédit) : champs de saisie par ligne, avec auto-complétion des comptes existants.",
-    ],
-    steps: [
-      "Vérifiez la date et le journal sélectionnés dans le premier bloc à gauche.",
-      "Repérez les montants HT, TVA et TTC sur le document à droite.",
-      "Renseignez la première ligne (ex. compte de charge 611100, montant HT au débit).",
-      "Cliquez sur « Ajouter une ligne » pour la TVA (ex. compte 345500, montant TVA au débit).",
-      "Ajoutez une ligne pour le fournisseur (ex. compte 441100, montant TTC au crédit).",
-      "Vérifiez qu'aucun bandeau orange de déséquilibre ne s'affiche, puis cliquez sur « Enregistrer ».",
-    ],
-    stepsTitle: "Équilibrer et enregistrer une écriture",
-    cases: [
-      "Saisie d'une facture comportant plusieurs taux de TVA.",
-      "Correction d'une écriture après changement de taux de change sur une transaction en devises.",
-    ],
-    rules: [
-      "Chaque ligne comporte soit un débit, soit un crédit — jamais les deux.",
-      "L'écriture doit être parfaitement équilibrée (Débit = Crédit) pour que l'enregistrement soit possible.",
+    shot: ["lettrage", "Les comptes de tiers et les rapprochements proposés, avec leur score et leur motif."],
+    sections: [
+      {
+        h2: "Lire une proposition",
+        text: "Chaque proposition porte un score et la règle qui l'a produite. Plus le score est élevé, plus le rapprochement est sûr.",
+        bullets: [
+          "Référence citée : le numéro de la facture apparaît dans le libellé du règlement. C'est la preuve la plus directe.",
+          "Montant et date : montant identique, dates rapprochées.",
+          "Montant et tiers : montant identique, et libellés désignant visiblement le même tiers.",
+          "Règlement groupé : un versement solde plusieurs factures à la fois.",
+        ],
+      },
+      {
+        h2: "Appliquer les rapprochements",
+        bullets: [
+          "« Appliquer » valide une proposition et lui attribue une lettre.",
+          "« Lettrage automatique » applique d'un coup tous les rapprochements sûrs, sur le compte ouvert ou sur tous les comptes. Les moins certains restent proposés, à valider à la main.",
+          "Pour lettrer vous-même, cochez des lignes : l'écart s'affiche en direct et le bouton ne s'active que si le groupe s'annule.",
+          "La lettre affichée sur une ligne est cliquable : elle défait le lettrage, après confirmation.",
+        ],
+      },
+      {
+        h2: "Pièces à justifier",
+        text: "L'onglet liste les mouvements des journaux de banque qui posent problème. Deux signaux, qui se cumulent souvent et appellent deux actions distinctes.",
+        shot: ["pieces-a-justifier", "Les mouvements bancaires sans justificatif ou restés à imputer."],
+        bullets: [
+          "Sans pièce : aucun justificatif n'est rattaché. Il est à réclamer au client.",
+          "À imputer : le mouvement dort sur un compte d'attente, son affectation reste à trancher.",
+          "Le bouton « Déposer la pièce » transmet le justificatif directement depuis la ligne concernée.",
+        ],
+      },
+      {
+        h2: "Après le dépôt d'un justificatif",
+        bullets: [
+          "Le mouvement quitte immédiatement la liste des pièces manquantes.",
+          "Dès que l'analyse produit l'écriture de la pièce, celle-ci est lettrée automatiquement avec le mouvement bancaire.",
+          "Si les montants ne s'annulent pas — règlement partiel, écart de change — rien n'est forcé : le lettrage reste à faire à la main.",
+        ],
+      },
     ],
     callouts: [
-      ["alerte", "Déséquilibre comptable détecté : bandeau orange sous le titre indiquant l'écart précis entre débit et crédit. L'enregistrement reste bloqué tant que la différence n'est pas nulle."],
-      ["attn", "Entrez un débit ou un crédit, mais pas les deux sur la même ligne."],
-      ["attn", "La date / le journal est obligatoire : ces informations d'en-tête sont manquantes."],
-      ["info", "Montants modifiés manuellement : le taux de change n'a plus d'influence (message informatif si vous forcez des valeurs converties)."],
-      ["conseil", "Utilisez la touche Tabulation pour passer d'un champ à l'autre. À la saisie du compte, tapez les premiers chiffres pour laisser l'auto-complétion faire le reste."],
+      ["info", "Les comptes lettrables dépendent du plan comptable du dossier, donc de son pays. Le plan appliqué est rappelé en haut de chaque onglet."],
+      ["conseil", "Un lettrage doit toujours être de solde nul. Si le groupe ne s'annule pas, c'est qu'il reste quelque chose à régler : ne forcez pas, cherchez la ligne manquante."],
     ],
-    faq: [
-      ["Pourquoi la facture ne s'affiche-t-elle pas à droite ?", "Si le message « Fichier non trouvé » apparaît, la pièce a peut-être été déplacée ou supprimée du stockage. Vous pouvez tout de même saisir l'écriture manuellement, sans aperçu."],
+  },
+
+  {
+    title: "9. Exporter les écritures",
+    tagline: "Produire le fichier destiné à votre logiciel comptable.",
+    intro: [
+      "L'export produit le fichier des écritures du dossier, dans le format attendu par votre logiciel de production.",
+      "Par défaut, seules les écritures validées sont exportées : c'est ce qu'attend un fichier des écritures comptables.",
+    ],
+    shot: ["export-ecritures", "La prévisualisation avant export, et les deux formats disponibles."],
+    sections: [
+      {
+        h2: "Choisir ce que vous exportez",
+        bullets: [
+          "Filtrez par exercice, par période ou par journal.",
+          "La prévisualisation affiche les écritures retenues et leur nombre de lignes avant tout téléchargement.",
+        ],
+      },
+      {
+        h2: "Deux formats",
+        bullets: [
+          "FEC (.txt) : le fichier des écritures comptables, avec ses dix-huit champs réglementaires.",
+          "Excel (.xlsx) : le même contenu en tableau, pour relecture ou retraitement.",
+        ],
+      },
+    ],
+    callouts: [
+      ["conseil", "Si le nombre de lignes vous paraît faible, vérifiez l'état de validation dans le journal : les écritures non validées sont exclues par défaut."],
+    ],
+  },
+
+  {
+    title: "10. Paramétrer un dossier client",
+    tagline: "Informations, exercices, historique et collaborateurs assignés.",
+    intro: [
+      "Les paramètres du dossier regroupent son identité, ses exercices comptables et les collaborateurs qui y ont accès.",
+      "Les champs d'identité s'enregistrent à la sortie de chaque champ : il n'y a pas de bouton à actionner.",
+    ],
+    shot: ["parametres-dossier", "Informations du dossier, collaborateurs assignés et exercices comptables."],
+    sections: [
+      {
+        h2: "Informations principales",
+        bullets: [
+          "Modifiables à tout moment : nom, ICE, adresse, ville, téléphone, e-mail, précision décimale.",
+          "Figés depuis la création : activité, pays et devise. Ils structurent le dossier et son plan comptable.",
+        ],
+      },
+      {
+        h2: "Collaborateurs assignés",
+        text: "Réservé aux administrateurs. Un collaborateur ne voit ce dossier, et n'y travaille, que s'il y figure.",
+        bullets: [
+          "La liste déroulante propose les collaborateurs actifs du cabinet non encore assignés.",
+          "La croix sur une pastille retire l'accès, après confirmation.",
+          "Les administrateurs ne sont pas proposés : ils accèdent déjà à tous les dossiers.",
+        ],
+      },
+      {
+        h2: "Exercices comptables",
+        bullets: [
+          "Créez, modifiez ou supprimez les exercices du dossier.",
+          "Les périodes ne peuvent pas se chevaucher.",
+        ],
+      },
+      {
+        h2: "Historique d'écritures",
+        text: "Vous pouvez transmettre un fichier d'écritures antérieures (balance ou FEC). Il sert de référence pour retrouver les bons comptes d'imputation, et évite d'avoir à paramétrer le dossier en détail.",
+      },
+    ],
+    callouts: [
+      ["info", "Un dossier sans aucun collaborateur assigné reste visible des seuls administrateurs. La mention apparaît en clair sur la carte du dossier."],
+    ],
+  },
+
+  {
+    title: "11. Paramétrer le cabinet",
+    tagline: "Nom du cabinet et gestion des collaborateurs.",
+    intro: [
+      "Cet écran est réservé aux administrateurs. Il porte sur le cabinet lui-même : son nom et les personnes qui y travaillent.",
+      "Un profil Utilisateur ne voit pas cette entrée de menu et ne peut pas y accéder.",
+    ],
+    shot: ["parametres-cabinet", "Le nom du cabinet et la liste des collaborateurs."],
+    sections: [
+      {
+        h2: "Gérer les collaborateurs",
+        bullets: [
+          "Ajoutez un collaborateur en renseignant son nom, son e-mail et son rôle.",
+          "Le crayon modifie la fiche ; la clé réinitialise le mot de passe.",
+          "Le cadenas désactive un compte sans le supprimer : la personne ne peut plus se connecter, son travail reste intact.",
+          "La corbeille supprime définitivement le compte.",
+        ],
+      },
+      {
+        h2: "Les deux rôles",
+        bullets: [
+          "Administrateur : tous les dossiers, les paramètres du cabinet et l'assignation des collaborateurs.",
+          "Utilisateur : uniquement les dossiers auxquels il est assigné, sans accès aux paramètres du cabinet.",
+        ],
+      },
+    ],
+    callouts: [
+      ["conseil", "Préférez la désactivation à la suppression pour un collaborateur qui quitte le cabinet : l'historique de ses actions reste ainsi consultable."],
     ],
   },
 ];

@@ -5,6 +5,11 @@ const articles = require("./articles-data.js");
 const OUT = __dirname;
 const ART_DIR = path.join(OUT, "articles");
 fs.mkdirSync(ART_DIR, { recursive: true });
+// On repart d'un dossier vide : un article renommé laisserait sinon son ancienne
+// page en ligne, orpheline et introuvable depuis le sommaire.
+for (const f of fs.readdirSync(ART_DIR)) {
+  if (f.endsWith(".html")) fs.unlinkSync(path.join(ART_DIR, f));
+}
 
 // ---------- helpers ----------
 const esc = (s) => String(s)
@@ -27,10 +32,11 @@ function cleanTitle(title) {
 
 // category assignment
 const CATEGORIES = [
-  { id: "prise-en-main", name: "Prise en main", icon: "🚀", desc: "Découvrir Pacioli et sa navigation.", titles: ["1."] },
-  { id: "pieces", name: "Traitement des pièces", icon: "📄", desc: "Déposer, analyser et saisir les pièces.", titles: ["2.", "8."] },
-  { id: "comptabilite", name: "Comptabilité", icon: "📊", desc: "Journal, comptes et export des écritures.", titles: ["3.", "4.", "7."] },
-  { id: "administration", name: "Administration", icon: "⚙️", desc: "Cabinet, collaborateurs et dossiers clients.", titles: ["5.", "6."] },
+  { id: "prise-en-main", name: "Prise en main", icon: "🚀", desc: "Découvrir Pacioli, les profils et le suivi du contrat.", titles: ["1.", "2."] },
+  { id: "dossiers", name: "Dossiers clients", icon: "📁", desc: "Créer et retrouver vos dossiers.", titles: ["3."] },
+  { id: "pieces", name: "Traitement des pièces", icon: "📄", desc: "Déposer les documents et saisir les écritures.", titles: ["4.", "5."] },
+  { id: "comptabilite", name: "Comptabilité", icon: "📊", desc: "Journal, comptes, lettrage et export.", titles: ["6.", "7.", "8.", "9."] },
+  { id: "administration", name: "Administration", icon: "⚙️", desc: "Paramétrer un dossier et le cabinet.", titles: ["10.", "11."] },
 ];
 function categoryOf(article) {
   return CATEGORIES.find((c) => c.titles.some((t) => article.title.startsWith(t)));
@@ -65,8 +71,8 @@ function buttonsTable(rows) {
   }</tbody></table></div>`;
 }
 const CALLOUT = {
-  conseil: { cls: "c-tip", label: "Conseil" },
-  info: { cls: "c-info", label: "Remarque" },
+  conseil: { cls: "c-tip", label: "Astuce" },
+  info: { cls: "c-info", label: "Bon à savoir" },
   attn: { cls: "c-warn", label: "Attention" },
   alerte: { cls: "c-alert", label: "Alerte" },
 };
@@ -80,29 +86,42 @@ function faqBlock(faq) {
   ).join("");
 }
 
-function articleBody(a) {
+/** Capture d'écran légendée. Le nom renvoie à un fichier de assets/img. */
+function figure(shot, rel) {
+  const [nom, legende] = shot;
+  return `<figure class="shot">
+    <img src="${rel}assets/img/${nom}.png" alt="${esc(legende)}" loading="lazy">
+    <figcaption>${esc(legende)}</figcaption>
+  </figure>`;
+}
+
+function section(sec, rel) {
+  let h = `<h2>${esc(sec.h2)}</h2>`;
+  if (sec.text) h += `<p>${esc(sec.text)}</p>`;
+  if (sec.shot) h += figure(sec.shot, rel);
+  if (sec.bullets) h += ul(sec.bullets);
+  return h;
+}
+
+function articleBody(a, rel = "../") {
   let h = "";
   if (a.tagline) h += `<p class="tagline">${esc(a.tagline)}</p>`;
-  h += `<h2>En bref</h2>${a.brief.map((t) => `<p>${esc(t)}</p>`).join("")}`;
-  if (a.access) h += `<h2>Comment y accéder</h2>${a.access.length > 1 ? ul(a.access) : `<p>${esc(a.access[0])}</p>`}`;
-  if (a.buttons) h += `<h2>Boutons et icônes</h2>${buttonsTable(a.buttons)}`;
-  if (a.fields) h += `<h2>Champs et filtres</h2>${ul(a.fields)}`;
-  if (a.steps) h += `<h2>${esc(a.stepsTitle || "Procédure pas à pas")}</h2>${ol(a.steps)}`;
-  if (a.cases) h += `<h2>Cas d'usage courants</h2>${ul(a.cases)}`;
-  if (a.rules) h += `<h2>Règles et limites</h2>${ul(a.rules)}`;
-  if (a.callouts) h += `<h2>Messages &amp; bonnes pratiques</h2>${a.callouts.map((c) => callout(c[0], c[1])).join("")}`;
-  if (a.faq) h += `<h2>Questions fréquentes</h2>${faqBlock(a.faq)}`;
+  h += (a.intro || []).map((t) => `<p>${esc(t)}</p>`).join("");
+  if (a.shot) h += figure(a.shot, rel);
+  h += (a.sections || []).map((sec) => section(sec, rel)).join("");
+  if (a.callouts) h += a.callouts.map((c) => callout(c[0], c[1])).join("");
   return h;
 }
 
 // plain text for search index
 function searchText(a) {
-  const parts = [a.clean, a.tagline, ...(a.brief || [])];
-  ["access", "fields", "steps", "cases", "rules"].forEach((k) => {
-    if (a[k]) parts.push(...a[k]);
-  });
-  if (a.buttons) a.buttons.forEach((r) => parts.push(r[0], r[1]));
-  if (a.faq) a.faq.forEach((f) => parts.push(f[0], f[1]));
+  const parts = [a.clean, a.tagline, ...(a.intro || [])];
+  for (const sec of a.sections || []) {
+    parts.push(sec.h2);
+    if (sec.text) parts.push(sec.text);
+    if (sec.bullets) parts.push(...sec.bullets);
+  }
+  if (a.callouts) a.callouts.forEach((c) => parts.push(c[1]));
   return parts.join(" ").replace(/\s+/g, " ").trim();
 }
 
@@ -183,7 +202,7 @@ function articlePage(a, prev, next) {
     ${crumbs}
     <span class="cat-badge">${a.cat.icon} ${esc(a.cat.name)}</span>
     <h1>${esc(a.clean)}</h1>
-    ${articleBody(a)}
+    ${articleBody(a, "../")}
     ${nav}
   </article>`;
   return shell({

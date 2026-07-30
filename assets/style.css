@@ -145,3 +145,27 @@ tbody tr:nth-child(even){background:var(--brand-050)}
   .article{padding:26px 20px}
   .hero{padding:44px 12px 28px}
 }
+
+
+/* ---------------------------------------------- captures d'écran d'article */
+.article .shot {
+  margin: 26px 0 30px;
+}
+.article .shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line, #e2ecea);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(14, 79, 73, .05), 0 14px 34px -18px rgba(14, 79, 73, .3);
+  background: #fff;
+}
+.article .shot figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6f8a86;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .article .shot { margin: 18px 0 22px; }
+}
