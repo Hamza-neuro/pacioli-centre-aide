@@ -78,7 +78,7 @@ const CALLOUT = {
 };
 function callout(kind, text) {
   const c = CALLOUT[kind];
-  return `<div class="callout ${c.cls}"><span class="callout-label">${c.label}</span><p>${esc(text)}</p></div>`;
+  return `<div class="callout ${c.cls}"><p><span class="callout-label">${c.label} —</span> ${esc(text)}</p></div>`;
 }
 function faqBlock(faq) {
   return faq.map(([q, a]) =>
@@ -89,10 +89,7 @@ function faqBlock(faq) {
 /** Capture d'écran légendée. Le nom renvoie à un fichier de assets/img. */
 function figure(shot, rel) {
   const [nom, legende] = shot;
-  return `<figure class="shot">
-    <img src="${rel}assets/img/${nom}.png" alt="${esc(legende)}" loading="lazy">
-    <figcaption>${esc(legende)}</figcaption>
-  </figure>`;
+  return `<figure class="shot"><img src="${rel}assets/img/${nom}.png" alt="${esc(legende)}" loading="lazy"></figure>`;
 }
 
 function section(sec, rel) {
@@ -141,7 +138,7 @@ function shell({ title, description, body, rel, active }) {
 <header class="site-header">
   <a class="brand" href="${rel}index.html">
     <span class="brand-mark">P</span>
-    <span class="brand-text">Pacioli<small>Centre d'aide</small></span>
+    <span class="brand-text">Pacioli Compta<small>Centre d'aide</small></span>
   </a>
   <div class="header-search">
     <input type="search" id="search" placeholder="Rechercher un article…" autocomplete="off" aria-label="Rechercher">
@@ -150,7 +147,7 @@ function shell({ title, description, body, rel, active }) {
 </header>
 <main>${body}</main>
 <footer class="site-footer">
-  <p>Pacioli — Centre d'aide · Automatisation de la saisie comptable</p>
+  <p>Pacioli Compta — Centre d'aide · Automatisation de la saisie comptable</p>
   <p class="muted">Besoin d'aide supplémentaire ? Contactez votre interlocuteur Pacioli.</p>
 </footer>
 <script src="${rel}assets/search.js"></script>
@@ -162,31 +159,38 @@ function shell({ title, description, body, rel, active }) {
 function homePage() {
   const cats = CATEGORIES.map((c) => {
     const arts = items.filter((i) => i.cat && i.cat.id === c.id);
-    return `<section class="cat-block">
-      <div class="cat-head"><span class="cat-icon">${c.icon}</span><div><h2>${esc(c.name)}</h2><p class="muted">${esc(c.desc)}</p></div></div>
+    if (!arts.length) return "";
+    return `<section class="cat-block" id="${c.id}">
+      <div class="cat-head"><h3>${c.icon} ${esc(c.name)}</h3><p class="muted">${esc(c.desc)}</p></div>
       <ul class="art-list">${
-        arts.map((a) => `<li><a href="articles/${a.slug}.html"><span class="art-title">${esc(a.clean)}</span><span class="art-sub">${esc(a.tagline || "")}</span></a></li>`).join("")
+        arts.map((a) => `<li><a href="articles/${a.slug}.html"><span class="art-title">${a.num}. ${esc(a.clean)}</span><span class="art-sub">${esc(a.tagline || "")}</span></a></li>`).join("")
       }</ul>
     </section>`;
   }).join("");
 
   const body = `
-  <section class="hero">
-    <h1>Comment pouvons-nous vous aider ?</h1>
-    <p>Guides pratiques pour tirer le meilleur de Pacioli — dépôt de pièces, écritures comptables et export.</p>
+  <section class="cover">
+    <p class="kicker">Pacioli Compta</p>
+    <h1>Centre d'aide</h1>
+    <p class="lede">Guide d'utilisation de votre espace de saisie comptable</p>
+  </section>
+  <div class="cover-meta">
+    <p class="domaines">Dossiers · Dépôt de pièces · Journal · Lettrage · Export</p>
+    <p class="edition">Édition juillet 2026</p>
     <div class="hero-search">
-      <input type="search" id="hero-search-input" placeholder="Rechercher : dépôt, journal, export, TVA…" autocomplete="off" aria-label="Rechercher">
+      <input type="search" id="hero-search-input" placeholder="Rechercher : dépôt, journal, lettrage, export…" autocomplete="off" aria-label="Rechercher">
       <div id="hero-search-results" class="search-results" hidden></div>
     </div>
-    <div class="hero-tags">
-      ${items.map((a) => `<a class="tag" href="articles/${a.slug}.html">${esc(a.clean)}</a>`).join("")}
-    </div>
-  </section>
-  <div class="cat-grid">${cats}</div>`;
+  </div>
+  <section class="sommaire">
+    <h2>Sommaire</h2>
+    <p class="intro">Chaque article est illustré par une capture de l'application. Retrouvez les fonctions dans le menu de gauche, organisé par domaine.</p>
+    ${cats}
+  </section>`;
 
   return shell({
-    title: "Pacioli — Centre d'aide",
-    description: "Centre d'aide Pacioli : guides pratiques pour la saisie comptable automatisée.",
+    title: "Pacioli Compta — Centre d'aide",
+    description: "Centre d'aide Pacioli Compta : guides pratiques pour la saisie comptable automatisée.",
     body, rel: "", active: "home",
   });
 }
