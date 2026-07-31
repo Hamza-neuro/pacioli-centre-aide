@@ -263,6 +263,14 @@
 </ul>
 <h3>Ouvrir une écriture</h3>
 <p>Cliquez sur le numéro d'une écriture pour l'ouvrir en saisie. Vos filtres sont conservés : en revenant au journal, vous retrouvez exactement la liste que vous aviez.</p>
+<h3>Repérer les lignes lettrées</h3>
+<p>La colonne <b>Lettre</b> affiche le code de lettrage des lignes rapprochées. Un clic sur la lettre ouvre le détail : toutes les lignes que ce lettrage réunit, souvent réparties sur plusieurs écritures et plusieurs journaux.</p>
+<figure><img loading="lazy" src="img/lettrage-detail.png" alt="Le détail d’un lettrage ouvert depuis le journal"><figcaption>Le détail d’un lettrage, ouvert en cliquant sur sa lettre</figcaption></figure>
+<ul class="dots">
+<li>La fenêtre rappelle <b>la méthode</b> du rapprochement en clair : référence citée, montant et libellés concordants, ou fait à la main.</li>
+<li><b>Le total débit et crédit</b> permet de vérifier d’un coup d’œil que le groupe s’annule.</li>
+<li>Une colonne Lettre vide signifie que la ligne reste à lettrer.</li>
+</ul>
 <h3>Valider</h3>
 <ul class="dots">
 <li>La validation se fait écriture par écriture, ou sur une <b>sélection</b>.</li>
@@ -287,12 +295,18 @@
 <article id="lettrage"><h2><span class="num">8.</span> Lettrer et justifier</h2><p class="intro">Le lettrage consiste à faire s'annuler les lignes d'un compte de tiers : une facture avec son règlement. L'écran vous propose les rapprochements, avec leur motif en clair — un rapprochement qu'on ne sait pas expliquer n'a pas sa place dans un dossier.</p>
 <figure><img loading="lazy" src="img/lettrage.png" alt="Les comptes de tiers et les rapprochements proposés"><figcaption>Les comptes de tiers et les rapprochements proposés, avec leur score et leur motif</figcaption></figure>
 <h3>Lire une proposition</h3>
-<p>Chaque proposition porte un score et la règle qui l'a produite. Plus le score est élevé, plus le rapprochement est sûr.</p>
+<p>Chaque proposition affiche <b>les lignes qu'elle rapproche</b> — date, journal, référence, tiers et montants — avec le score et la règle qui l'a produite. Vous jugez sur pièce, sans quitter l'écran.</p>
 <ul class="dots">
 <li><b>Référence citée</b> : le numéro de la facture apparaît dans le libellé du règlement. C'est la preuve la plus directe.</li>
-<li><b>Montant et date</b> : montant identique, dates rapprochées.</li>
 <li><b>Montant et tiers</b> : montant identique, et libellés désignant visiblement le même tiers.</li>
+<li><b>Montant et date</b> : montant identique et dates proches, mais aucun libellé ne confirme le tiers. Jamais appliqué automatiquement.</li>
 <li><b>Règlement groupé</b> : un versement solde plusieurs factures à la fois.</li>
+</ul>
+<h3>Deux groupes, deux gestes</h3>
+<ul class="dots">
+<li><b>Rapprochements sûrs</b> : le lettrage automatique les applique d'un coup.</li>
+<li><b>À vérifier</b> : le montant concorde mais rien ne confirme le tiers. Relisez avant d'appliquer.</li>
+<li>Quand plusieurs lignes se disputent le même montant sans autre indice, <b>rien n'est proposé</b> : le choix serait arbitraire, il vous revient.</li>
 </ul>
 <h3>Appliquer les rapprochements</h3>
 <ol class="steps">
@@ -315,6 +329,8 @@
 <li>Dès que l'analyse produit l'écriture de la pièce, celle-ci est <b>lettrée automatiquement</b> avec le mouvement bancaire.</li>
 <li>Si les montants ne s'annulent pas — règlement partiel, écart de change — rien n'est forcé : le lettrage reste à faire à la main.</li>
 </ul>
+<h3>Retrouver un lettrage depuis le journal</h3>
+<p>Une fois appliqué, le lettrage se consulte aussi depuis le <b>journal comptable</b> : la colonne Lettre y affiche le code, et un clic dessus rouvre le détail du rapprochement.</p>
 <div class="callout warn"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><span class="lead-w">Bon à savoir —</span> Les comptes lettrables dépendent du plan comptable du dossier, donc de son pays. Le plan appliqué est rappelé en haut de chaque onglet.</div></div>
 <div class="callout"><span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span><div><span class="lead-w">Astuce —</span> Un lettrage doit toujours être de solde nul. Si le groupe ne s'annule pas, c'est qu'il reste quelque chose à régler : ne forcez pas, cherchez la ligne manquante.</div></div></article>
 
