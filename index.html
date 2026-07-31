@@ -270,6 +270,7 @@
 <li>La fenêtre rappelle <b>la méthode</b> du rapprochement en clair : référence citée, montant et libellés concordants, ou fait à la main.</li>
 <li><b>Le total débit et crédit</b> permet de vérifier d’un coup d’œil que le groupe s’annule.</li>
 <li>Une colonne Lettre vide signifie que la ligne reste à lettrer.</li>
+<li>Certaines lettres apparaissent <b>sans que vous ayez rien fait</b> : les rapprochements prouvés par la référence de la pièce sont appliqués à l'arrivée de l'écriture. Le détail le précise, et le clic les défait.</li>
 </ul>
 <h3>Valider</h3>
 <ul class="dots">
@@ -294,10 +295,17 @@
 
 <article id="lettrage"><h2><span class="num">8.</span> Lettrer et justifier</h2><p class="intro">Le lettrage consiste à faire s'annuler les lignes d'un compte de tiers : une facture avec son règlement. L'écran vous propose les rapprochements, avec leur motif en clair — un rapprochement qu'on ne sait pas expliquer n'a pas sa place dans un dossier.</p>
 <figure><img loading="lazy" src="img/lettrage.png" alt="Les comptes de tiers et les rapprochements proposés"><figcaption>Les comptes de tiers et les rapprochements proposés, avec leur score et leur motif</figcaption></figure>
-<h3>Lire une proposition</h3>
-<p>Chaque proposition affiche <b>les lignes qu'elle rapproche</b> — date, journal, référence, tiers et montants — avec le score et la règle qui l'a produite. Vous jugez sur pièce, sans quitter l'écran.</p>
+<h3>Ce qui se fait sans vous</h3>
+<p>Quand le numéro d'une facture figure dans le libellé du règlement, pour un montant identique au centime, le rapprochement est <b>appliqué dès l'arrivée de l'écriture</b> — qu'elle vienne de l'analyse d'une pièce ou de votre saisie. C'est la seule règle qui apporte une preuve ; les autres attendent votre accord.</p>
 <ul class="dots">
-<li><b>Référence citée</b> : le numéro de la facture apparaît dans le libellé du règlement. C'est la preuve la plus directe.</li>
+<li>Peu importe l'ordre : facture puis règlement, ou l'inverse. Dès que la paire est complète, elle se lettre.</li>
+<li>Ces lettrages portent la mention <b>« appliqué automatiquement »</b> dans le détail, au journal.</li>
+<li>Vous gardez la main : un clic sur la lettre le défait.</li>
+</ul>
+<h3>Lire une proposition</h3>
+<p>Pour tout le reste, l'outil propose. Chaque proposition affiche <b>les lignes qu'elle rapproche</b> — date, journal, référence, tiers et montants — avec le score et la règle qui l'a produite. Vous jugez sur pièce, sans quitter l'écran.</p>
+<ul class="dots">
+<li><b>Référence citée</b> : la preuve la plus directe — déjà appliquée, vous la retrouvez lettrée.</li>
 <li><b>Montant et tiers</b> : montant identique, et libellés désignant visiblement le même tiers.</li>
 <li><b>Montant et date</b> : montant identique et dates proches, mais aucun libellé ne confirme le tiers. Jamais appliqué automatiquement.</li>
 <li><b>Règlement groupé</b> : un versement solde plusieurs factures à la fois.</li>
@@ -322,6 +330,7 @@
 <li><b>Sans pièce</b> : aucun justificatif n'est rattaché. Il est à réclamer au client.</li>
 <li><b>À imputer</b> : le mouvement dort sur un compte d'attente, son affectation reste à trancher.</li>
 <li>Le bouton <b>« Déposer la pièce »</b> transmet le justificatif directement depuis la ligne concernée.</li>
+<li>Un <b>filtre par mois</b> permet de traiter période par période ; seuls les mois comportant des mouvements sont proposés.</li>
 </ul>
 <h3>Après le dépôt d'un justificatif</h3>
 <ul class="dots">
